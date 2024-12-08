@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('classes', function (Blueprint $table) {
+        Schema::create('competitions', function (Blueprint $table) {
             $table->id();
-            $table->string('bird_type');
-            $table->string('class_name');
-            $table->integer('participant_limit');
+            $table->string('name');
+            $table->date('date');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('classes');
+        Schema::dropIfExists('competitions');
     }
 };

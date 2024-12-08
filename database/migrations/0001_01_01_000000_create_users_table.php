@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('jenis_kelamin')->nullable();
             $table->string('alamat')->nullable();
-            $table->enum('role', ['admin', 'juri', 'user']);
+            $table->enum('role', ['admin', 'juri']);
             $table->rememberToken();
             $table->timestamps();
         });

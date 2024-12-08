@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('participants', function (Blueprint $table) {
+        Schema::create('scores', function (Blueprint $table) {
             $table->id();
             $table->foreignId('class_id')->constrained('classes')->onDelete('cascade');
-            $table->string('name');
-            $table->text('description')->nullable();
+            $table->foreignId('participant_id')->constrained('participants')->onDelete('cascade');
+            $table->foreignId('judge_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('criteria_id')->constrained('criterias')->onDelete('cascade');
+            $table->integer('score');
+            $table->string('comments');
             $table->timestamps();
         });
     }
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('participants');
+        Schema::dropIfExists('scores');
     }
 };

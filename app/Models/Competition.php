@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Participants extends Model
+class Competition extends Model
 {
     //
 }

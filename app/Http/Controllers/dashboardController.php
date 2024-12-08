@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class authController extends Controller
+class dashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('layouts.auth.login');
+        return view('pages.dashboard');
     }
 
     /**
@@ -61,33 +60,5 @@ class authController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function login(Request $request)
-    {
-        // Validasi input
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        // Cek autentikasi
-        if (Auth::attempt($request->only('email', 'password'))) {
-            return redirect()->route('dashboard');
-        }
-
-        return back()->withErrors([
-            'login_error' => 'Email atau Password yang Anda masukkan salah.',
-        ]);
-    }
-
-    public function logout(Request $request)
-    {
-        Auth::logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/');
     }
 }

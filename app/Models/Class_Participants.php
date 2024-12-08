@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Penilaian extends Model
+class Class_Participants extends Model
 {
     //
 }
