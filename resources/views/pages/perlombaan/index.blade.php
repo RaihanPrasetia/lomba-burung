@@ -1,5 +1,5 @@
 @extends('layouts.master')
-
+@section('title', 'Perlombaan')
 @section('content')
     <section class="w-full">
         <div class="flex justify-between items-center mb-6">

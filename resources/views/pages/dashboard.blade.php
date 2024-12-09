@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'Dashboard')
+
 @section('content')
     <section class="w-full">
         <h1 class="text-3xl font-bold text-white">Dashboard</h1>
