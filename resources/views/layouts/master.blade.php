@@ -37,6 +37,7 @@
     @include('components.sidebar')
     <div>
         <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
+            @include('components.navbar')
             @yield('content')
         </main>
     </div>

@@ -1,5 +1,5 @@
 <aside
-    class="max-w-62.5 ease-nav-brand z-990 fixed inset-y-0 my-4 ml-4 block w-full -translate-x-full flex-wrap items-center justify-between overflow-y-auto rounded-2xl border-0 bg-white p-0 antialiased shadow-none transition-transform duration-200 xl:left-0 xl:translate-x-0 xl:bg-transparent">
+    class="max-w-62.5 ease-nav-brand  z-990 fixed inset-y-0 my-4 ml-4 block w-full -translate-x-full flex-wrap items-center justify-between overflow-y-auto rounded-2xl border-0 bg-white p-0 antialiased shadow-none transition-transform duration-200 xl:left-0 xl:translate-x-0 xl:bg-transparent">
     <div class="h-19.5">
         <i class="absolute top-0 right-0 hidden p-4 opacity-50 cursor-pointer fas fa-times text-slate-400 xl:hidden"
             sidenav-close></i>
@@ -15,18 +15,19 @@
     <div class="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full">
         <ul class="flex flex-col pl-0 mb-0">
             <li class="mt-0.5 w-full">
-                <a class="py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors"
+                <a class="py-2.7  text-sm ease-nav-brand my-0 mx-4 flex items-center px-4 whitespace-nowrap transition-colors  {{ request()->routeIs('dashboard') ? 'bg-white whitespace-nowrap rounded-lg   font-semibold text-slate-700 transition-colors shadow-soft-xl' : '' }}"
                     href="{{ route('dashboard') }}">
                     <div
-                        class="bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
+                        class="{{ request()->routeIs('dashboard') ? 'bg-gradient-to-tl shadow-soft-xl' : '' }} shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                         <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <title>shop</title>
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                            <g stroke="none" stroke-width="1" fill="fill-slate-800" fill-rule="evenodd">
+                                <g transform="translate(-1716.000000, -439.000000)" fill="fill-slate-800"
+                                    fill-rule="nonzero">
                                     <g transform="translate(1716.000000, 291.000000)">
                                         <g transform="translate(0.000000, 148.000000)">
-                                            <path class="opacity-60"
+                                            <path class="opacity-60 "
                                                 d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z">
                                             </path>
                                             <path class=""
@@ -47,7 +48,7 @@
             </li>
 
             <li class="mt-0.5 w-full">
-                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
+                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ request()->routeIs('perlombaan.index') ? 'bg-white whitespace-nowrap rounded-lg   font-semibold text-slate-700 transition-colors shadow-soft-xl' : '' }}"
                     href="{{ route('perlombaan.index') }}">
                     <div
                         class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
@@ -81,7 +82,7 @@
             </li>
 
             <li class="mt-0.5 w-full">
-                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
+                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ request()->routeIs('class.index') ? 'bg-white whitespace-nowrap rounded-lg   font-semibold text-slate-700 transition-colors shadow-soft-xl' : '' }}"
                     href="{{ route('class.index') }}">
                     <div
                         class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
@@ -109,7 +110,7 @@
             </li>
 
             <li class="mt-0.5 w-full">
-                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
+                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ request()->routeIs('criteria.index') ? 'bg-white whitespace-nowrap rounded-lg   font-semibold text-slate-700 transition-colors shadow-soft-xl' : '' }}"
                     href="{{ route('criteria.index') }}">
                     <div
                         class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
@@ -137,7 +138,7 @@
             </li>
 
             <li class="mt-0.5 w-full">
-                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
+                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ request()->routeIs('peserta.index') ? 'bg-white whitespace-nowrap rounded-lg   font-semibold text-slate-700 transition-colors shadow-soft-xl' : '' }}"
                     href="{{ route('peserta.index') }}">
                     <div
                         class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
@@ -169,7 +170,7 @@
             </li>
 
             <li class="mt-0.5 w-full">
-                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
+                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ request()->routeIs('juri.index') ? 'bg-white whitespace-nowrap rounded-lg   font-semibold text-slate-700 transition-colors shadow-soft-xl' : '' }}"
                     href="{{ route('juri.index') }}">
                     <div
                         class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
@@ -205,7 +206,7 @@
             </li>
 
             <li class="mt-0.5 w-full">
-                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
+                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ request()->routeIs('penilaian.index') ? 'bg-white whitespace-nowrap rounded-lg   font-semibold text-slate-700 transition-colors shadow-soft-xl' : '' }}"
                     href="{{ route('penilaian.index') }}">
                     <div
                         class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
@@ -237,7 +238,7 @@
             </li>
 
             <li class="mt-0.5 w-full">
-                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
+                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ request()->routeIs('score.index') ? 'bg-white whitespace-nowrap rounded-lg   font-semibold text-slate-700 transition-colors shadow-soft-xl' : '' }}"
                     href="{{ route('score.index') }}">
                     <div
                         class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
