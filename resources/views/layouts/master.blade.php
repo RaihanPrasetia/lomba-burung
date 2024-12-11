@@ -19,7 +19,8 @@
     <!-- Popper -->
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <!-- Main Styling -->
-    <link href="{{ asset('assets/css/soft-ui-dashboard-tailwind.css') }}?v=1.0.5" rel="stylesheet">
+    {{-- <link href="{{ asset('assets/css/soft-ui-dashboard-tailwind.css') }}?v=1.0.5" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="https://demos.creative-tim.com/soft-ui-flowbite/app.css">
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 </head>
@@ -32,12 +33,18 @@
         </div>
     </section>
 </body> --}}
-<body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
-    @include('components.sidebar')
-    <div>
-        <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
-            @yield('content')
-        </main>
+{{-- @include('components.modals.modalAdd') --}}
+
+<body class="bg-gray-50">
+    @include('components.navbar')
+    <div class="flex overflow-hidden bg-white pt-16">
+        @include('components.sidebar')
+        <div class="hidden fixed inset-0 z-10 bg-gray-900 opacity-50" id="sidebarBackdrop"></div>
+        <div id="main-content" class="h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64">
+            <main class="bg-gray-50">
+                @yield('content')
+            </main>
+        </div>
     </div>
 </body>
 <!-- plugin for charts  -->
@@ -45,7 +52,9 @@
 <!-- plugin for scrollbar  -->
 <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}" async></script>
 <!-- github button -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
 <!-- main script file  -->
 <script src="{{ asset('assets/js/soft-ui-dashboard-tailwind.js') }}?v=1.0.5" async></script>
+<script src="https://demos.creative-tim.com/soft-ui-flowbite/app.bundle.js"></script>
+
 </html>
