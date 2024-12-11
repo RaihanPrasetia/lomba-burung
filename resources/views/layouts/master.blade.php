@@ -33,7 +33,7 @@
         </div>
     </section>
 </body> --}}
-{{-- @include('components.modals.modalAdd') --}}
+@include('components.modals.modalAdd')
 
 <body class="bg-gray-50">
     @include('components.navbar')

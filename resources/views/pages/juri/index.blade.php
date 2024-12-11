@@ -89,6 +89,6 @@
             </div>
         </div>
     </section>
-    @include('components.modals.modalDelete')
-    @include('components.modals.modalEdit')
+    {{-- @include('components.modals.modalDelete')
+    @include('components.modals.modalEdit') --}}
 @endsection
