@@ -71,12 +71,17 @@
                                 <li class="relative flex p-6 mb-2 border-0 rounded-t-inherit rounded-xl bg-gray-50">
                                     <div class="flex flex-col">
                                         <h6 class="mb-4 leading-normal text-sm">Class A</h6>
-                                        <span class="mb-2 leading-tight text-xs">Nama Juri: <span
-                                                class="font-semibold text-slate-700 sm:ml-2">Viking Burrito</span></span>
-                                        <span class="mb-2 leading-tight text-xs">Email Address: <span
-                                                class="font-semibold text-slate-700 sm:ml-2">oliver@burrito.com</span></span>
-                                        <span class="leading-tight text-xs">VAT Number: <span
-                                                class="font-semibold text-slate-700 sm:ml-2">FRB1235476</span></span>
+                                        <div class="flex flex-col mb-2 bg-white p-6 rounded-lg shadow-lg border">
+                                            <span class="mb-2 leading-tight text-xs">Nama Juri: <span
+                                                    class="font-semibold text-slate-700 sm:ml-2">Viking
+                                                    Burrito</span></span>
+                                            <span class="mb-2 leading-tight text-xs">Alamat: <span
+                                                    class="font-semibold text-slate-700 sm:ml-2">Bandung, jalan merpati blok
+                                                    E
+                                                    No 32</span></span>
+                                            <span class="leading-tight text-xs">Jenis Kelamin: <span
+                                                    class="font-semibold text-slate-700 sm:ml-2">Laki - Laki</span></span>
+                                        </div>
                                     </div>
                                     <div class="ml-auto text-right">
                                         <a class="relative z-10 inline-block px-4 py-3 mb-0 font-bold text-center text-transparent uppercase align-middle transition-all border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 bg-gradient-to-tl from-red-600 to-rose-400 hover:scale-102 active:opacity-85 bg-x-25 bg-clip-text"
@@ -88,14 +93,26 @@
                                     </div>
                                 </li>
                                 <li class="relative flex p-6 mt-4 mb-2 border-0 rounded-xl bg-gray-50">
-                                    <div class="flex flex-col">
-                                        <h6 class="mb-4 leading-normal text-sm">Lucas Harper</h6>
-                                        <span class="mb-2 leading-tight text-xs">Company Name: <span
-                                                class="font-semibold text-slate-700 sm:ml-2">Stone Tech Zone</span></span>
-                                        <span class="mb-2 leading-tight text-xs">Email Address: <span
-                                                class="font-semibold text-slate-700 sm:ml-2">lucas@stone-tech.com</span></span>
-                                        <span class="leading-tight text-xs">VAT Number: <span
-                                                class="font-semibold text-slate-700 sm:ml-2">FRB1235476</span></span>
+                                    <div class="flex flex-col space-y-2">
+                                        <h6 class="mb-4 leading-normal text-sm">Class B</h6>
+                                        <div class="flex flex-col mb-2 bg-white p-6 rounded-lg shadow-lg border">
+                                            <span class="mb-2 leading-tight text-xs">Nama Juri: <span
+                                                    class="font-semibold text-slate-700 sm:ml-2">Natasha Alexa</span></span>
+                                            <span class="mb-2 leading-tight text-xs">Alamat: <span
+                                                    class="font-semibold text-slate-700 sm:ml-2">Jambi, lorong cemara 1 blok
+                                                    b2</span></span>
+                                            <span class="leading-tight text-xs">Jenis Kelamin: <span
+                                                    class="font-semibold text-slate-700 sm:ml-2">Perempuan</span></span>
+                                        </div>
+                                        <div class="flex flex-col mb-2 bg-white p-6 rounded-lg shadow-lg border">
+                                            <span class="mb-2 leading-tight text-xs">Nama Juri: <span
+                                                    class="font-semibold text-slate-700 sm:ml-2">Natasha Alexa</span></span>
+                                            <span class="mb-2 leading-tight text-xs">Alamat: <span
+                                                    class="font-semibold text-slate-700 sm:ml-2">Jambi, lorong cemara 1 blok
+                                                    b2</span></span>
+                                            <span class="leading-tight text-xs">Jenis Kelamin: <span
+                                                    class="font-semibold text-slate-700 sm:ml-2">Perempuan</span></span>
+                                        </div>
                                     </div>
                                     <div class="ml-auto text-right">
                                         <a class="relative z-10 inline-block px-4 py-3 mb-0 font-bold text-center text-transparent uppercase align-middle transition-all border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 bg-gradient-to-tl from-red-600 to-rose-400 hover:scale-102 active:opacity-85 bg-x-25 bg-clip-text"
@@ -108,13 +125,16 @@
                                 </li>
                                 <li class="relative flex p-6 mt-4 mb-2 border-0 rounded-b-inherit rounded-xl bg-gray-50">
                                     <div class="flex flex-col">
-                                        <h6 class="mb-4 leading-normal text-sm">Ethan James</h6>
-                                        <span class="mb-2 leading-tight text-xs">Company Name: <span
-                                                class="font-semibold text-slate-700 sm:ml-2">Fiber Notion</span></span>
-                                        <span class="mb-2 leading-tight text-xs">Email Address: <span
-                                                class="font-semibold text-slate-700 sm:ml-2">ethan@fiber.com</span></span>
-                                        <span class="leading-tight text-xs">VAT Number: <span
-                                                class="font-semibold text-slate-700 sm:ml-2">FRB1235476</span></span>
+                                        <h6 class="mb-4 leading-normal text-sm">Class C</h6>
+                                        <div class="flex flex-col mb-2 bg-white p-6 rounded-lg shadow-lg border">
+                                            <span class="mb-2 leading-tight text-xs">Nama Juri: <span
+                                                    class="font-semibold text-slate-700 sm:ml-2">Fiber Notion</span></span>
+                                            <span class="mb-2 leading-tight text-xs">Alamat: <span
+                                                    class="font-semibold text-slate-700 sm:ml-2">Jakarta, jalan abdul
+                                                    rohim</span></span>
+                                            <span class="leading-tight text-xs">Jenis Kelamin: <span
+                                                    class="font-semibold text-slate-700 sm:ml-2">Laki - Laki</span></span>
+                                        </div>
                                     </div>
                                     <div class="ml-auto text-right">
                                         <a class="relative z-10 inline-block px-4 py-3 mb-0 font-bold text-center text-transparent uppercase align-middle transition-all border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 bg-gradient-to-tl from-red-600 to-rose-400 hover:scale-102 active:opacity-85 bg-x-25 bg-clip-text"
@@ -131,7 +151,7 @@
                 </div>
                 <div class="w-full max-w-full px-3 mt-6 md:w-5/12 md:flex-none">
                     <div
-                        class="relative flex flex-col h-full min-w-0 mb-6 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
+                        class="relative flex flex-col min-w-0 mb-6 break-words h-max bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
                         <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
                             <div class="flex flex-wrap -mx-3">
                                 <div class="max-w-full px-3 md:w-1/2 md:flex-none">
@@ -139,7 +159,7 @@
                                 </div>
                                 <div class="flex items-center justify-end max-w-full px-3 md:w-1/2 md:flex-none">
                                     <i class="mr-2 far fa-calendar-alt"></i>
-                                    <small>Event 1</small>
+                                    <small>Kamis, 12 Desember 2024</small>
                                 </div>
                             </div>
                         </div>
