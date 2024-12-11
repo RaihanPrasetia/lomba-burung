@@ -48,7 +48,7 @@
 
             <li class="mt-0.5 w-full">
                 <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-                    href="./pages/sign-up.html">
+                    href="{{ route('perlombaan.index') }}">
                     <div
                         class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                         <svg width="12px" height="20px" viewBox="0 0 40 40" version="1.1"
@@ -82,7 +82,7 @@
 
             <li class="mt-0.5 w-full">
                 <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-                    href="./pages/tables.html">
+                    href="{{ route('class.index') }}">
                     <div
                         class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                         <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1"
@@ -110,7 +110,7 @@
 
             <li class="mt-0.5 w-full">
                 <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-                    href="./pages/sign-in.html">
+                    href="{{ route('criteria.index') }}">
                     <div
                         class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                         <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
@@ -138,7 +138,7 @@
 
             <li class="mt-0.5 w-full">
                 <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-                    href="./pages/profile.html">
+                    href="{{ route('peserta.index') }}">
                     <div
                         class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                         <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1"
@@ -206,7 +206,7 @@
 
             <li class="mt-0.5 w-full">
                 <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-                    href="./pages/profile.html">
+                    href="{{ route('penilaian.index') }}">
                     <div
                         class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                         <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1"
@@ -238,7 +238,7 @@
 
             <li class="mt-0.5 w-full">
                 <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-                    href="./pages/profile.html">
+                    href="{{ route('score.index') }}">
                     <div
                         class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                         <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1"
