@@ -40,11 +40,13 @@
     </section>
 </body> --}}
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini">
     <div class="wrapper">
         @include('components.navbar')
         @include('components.sidebar')
-        @yield('content')
+        <div class="content-wrapper">
+            @yield('content')
+        </div>
         @include('components.footer')
     </div>
 </body>
