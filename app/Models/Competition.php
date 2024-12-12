@@ -15,6 +15,7 @@ class Competition extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'pdf_link',
         'status',
@@ -26,6 +27,6 @@ class Competition extends Model
      */
     public function classes()
     {
-        return $this->hasMany(Classes::class);
+        return $this->hasMany(Classes::class, 'competition_id');
     }
 }

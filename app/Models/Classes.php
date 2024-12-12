@@ -14,10 +14,11 @@ class Classes extends Model
      *
      * @var array<int, string>
      */
+    protected $table = 'classes';
+
     protected $fillable = [
         'name',
         'competition_id',
-        'judge_id',
     ];
 
     /**
@@ -29,18 +30,11 @@ class Classes extends Model
     }
 
     /**
-     * Get the judge associated with the class.
-     */
-    public function judge()
-    {
-        return $this->belongsTo(User::class, 'judge_id');
-    }
-    /**
      * Get the class_participant associated with the class.
      */
     public function class_participants()
     {
-        return $this->hasMany(Class_Participants::class);
+        return $this->hasMany(Class_Participants::class, 'class_id');
     }
 
     /**

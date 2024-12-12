@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use PhpParser\Builder\Class_;
 
 class Class_Participants extends Model
 {
@@ -15,17 +14,19 @@ class Class_Participants extends Model
      *
      * @var array<int, string>
      */
+    protected $table = 'class_participants';
     protected $fillable = [
         'class_id',
         'participant_id',
+        'judge_id'
     ];
 
     /**
      * Get the competition that owns the class.
      */
-    public function class()
+    public function classes()
     {
-        return $this->belongsTo(Classes::class, 'class_id');
+        return $this->belongsTo(Classes::class);
     }
 
     /**
@@ -34,5 +35,10 @@ class Class_Participants extends Model
     public function participant()
     {
         return $this->belongsTo(Participant::class, 'participant_id');
+    }
+
+    public function judge()
+    {
+        return $this->belongsTo(User::class, 'judge_id');
     }
 }
