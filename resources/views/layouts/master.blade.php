@@ -35,18 +35,14 @@
         </div>
     </section>
 </body> --}}
-@include('components.modals.modalAdd')
 
-<body class="bg-gray-50">
-    @include('components.navbar')
-    <div class="flex overflow-hidden bg-white pt-16">
-        @include('components.sidebar')
-        <div class="hidden fixed inset-0 z-10 bg-gray-900 opacity-50" id="sidebarBackdrop"></div>
-        <div id="main-content" class="h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64">
-            <main class="bg-gray-50">
-                @yield('content')
-            </main>
-        </div>
+<body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
+    @include('components.sidebar')
+    <div>
+        <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
+            @include('components.navbar')
+            @yield('content')
+        </main>
     </div>
 </body>
 <!-- plugin for charts  -->
@@ -57,7 +53,6 @@
 <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
 <!-- main script file  -->
 <script src="{{ asset('assets/js/soft-ui-dashboard-tailwind.js') }}?v=1.0.5" async></script>
-<script src="https://demos.creative-tim.com/soft-ui-flowbite/app.bundle.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
