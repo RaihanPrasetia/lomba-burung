@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/criteria', [criteriaController::class, 'index'])->name('criteria.index');
     Route::get('/peserta', [pesertaController::class, 'index'])->name('peserta.index');
     Route::get('/juri', [juriController::class, 'index'])->name('juri.index');
+    Route::resource('juris', JuriController::class);
 
 
     Route::get('/penilaian', [penilaianController::class, 'index'])->name('penilaian.index');
