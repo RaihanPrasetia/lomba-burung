@@ -21,7 +21,8 @@
     <!-- Popper -->
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <!-- Main Styling -->
-    <link href="{{ asset('assets/css/soft-ui-dashboard-tailwind.css') }}?v=1.0.5" rel="stylesheet">
+    {{-- <link href="{{ asset('assets/css/soft-ui-dashboard-tailwind.css') }}?v=1.0.5" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="https://demos.creative-tim.com/soft-ui-flowbite/app.css">
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 </head>
@@ -49,7 +50,7 @@
 <!-- plugin for scrollbar  -->
 <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}" async></script>
 <!-- github button -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
 <!-- main script file  -->
 <script src="{{ asset('assets/js/soft-ui-dashboard-tailwind.js') }}?v=1.0.5" async></script>
 

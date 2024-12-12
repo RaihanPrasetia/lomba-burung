@@ -4,270 +4,93 @@
 
 @section('content')
     <section>
-        <div class="w-full px-6 py-6 mx-auto">
-            <div class="flex flex-wrap -mx-3">
-                {{-- @include('components.modals') --}}
-                <div class="flex-none w-full max-w-full px-3">
-
-                    <div
-                        class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-                        <div
-                            class="flex justify-between items-center p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                            <h6>Tabel Juri</h6>
-                            <div class="flex-none w-1/2 max-w-full px-3 text-right">
-                                <button
-                                    class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25"
-                                    type="button" data-toggle="modal" data-target="#modals"> <i class="fas fa-plus">
-                                    </i>&nbsp;&nbsp;Add New Card</button>
-                            </div>
-                        </div>
-
-                        <div class="flex-auto px-0 pt-0 pb-2">
-                            <div class="p-0 overflow-x-auto">
-                                <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
-                                    <thead class="align-bottom">
-                                        <tr>
-                                            <th
-                                                class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                Nama Juri</th>
-                                            <th
-                                                class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                Jenis Kelamin</th>
-                                            <th
-                                                class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                Alamat</th>
-                                            <th
-                                                class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                Stasus</th>
-                                            <th
-                                                class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <div class="flex px-2 py-1">
-                                                    <div class="flex flex-col justify-center">
-                                                        <h6 class="mb-0 text-sm leading-normal">John Michael</h6>
-                                                        <p class="mb-0 text-xs leading-tight text-slate-400">
-                                                            john@creative-tim.com</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span class="text-xs font-semibold leading-tight text-slate-400">Laki -
-                                                    Laki</span>
-                                            </td>
-                                            <td
-                                                class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span class="text-xs font-semibold leading-tight text-slate-400">Jln.
-                                                    Patimura no.13</span>
-                                            </td>
-                                            <td
-                                                class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span
-                                                    class="bg-gradient-to-tl from-green-600 to-lime-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Online</span>
-                                            </td>
-                                            <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap text-center shadow-transparent">
-                                                <a class="inline-block px-4 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 hover:scale-102 active:opacity-85 bg-x-25 text-slate-700"
-                                                    href="javascript:;"><i class="mr-2 fas fa-pencil-alt text-slate-700"
-                                                        aria-hidden="true"></i>Edit</a>
-                                                <a class="relative z-10 inline-block px-4 py-3 mb-0 font-bold text-center text-transparent uppercase align-middle transition-all border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 bg-gradient-to-tl from-red-600 to-rose-400 hover:scale-102 active:opacity-85 bg-x-25 bg-clip-text"
-                                                    href="javascript:;"><i
-                                                        class="mr-2 far fa-trash-alt bg-150 bg-gradient-to-tl from-red-600 to-rose-400 bg-x-25 bg-clip-text"></i>Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <div class="flex px-2 py-1">
-                                                    <div class="flex flex-col justify-center">
-                                                        <h6 class="mb-0 text-sm leading-normal">John Michael</h6>
-                                                        <p class="mb-0 text-xs leading-tight text-slate-400">
-                                                            john@creative-tim.com</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span class="text-xs font-semibold leading-tight text-slate-400">Laki -
-                                                    Laki</span>
-                                            </td>
-                                            <td
-                                                class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span class="text-xs font-semibold leading-tight text-slate-400">Jln.
-                                                    Patimura no.13</span>
-                                            </td>
-                                            <td
-                                                class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span
-                                                    class="bg-gradient-to-tl from-green-600 to-lime-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Online</span>
-                                            </td>
-                                            <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap text-center shadow-transparent">
-                                                <a class="inline-block px-4 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 hover:scale-102 active:opacity-85 bg-x-25 text-slate-700"
-                                                    href="javascript:;"><i class="mr-2 fas fa-pencil-alt text-slate-700"
-                                                        aria-hidden="true"></i>Edit</a>
-                                                <a class="relative z-10 inline-block px-4 py-3 mb-0 font-bold text-center text-transparent uppercase align-middle transition-all border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 bg-gradient-to-tl from-red-600 to-rose-400 hover:scale-102 active:opacity-85 bg-x-25 bg-clip-text"
-                                                    href="javascript:;"><i
-                                                        class="mr-2 far fa-trash-alt bg-150 bg-gradient-to-tl from-red-600 to-rose-400 bg-x-25 bg-clip-text"></i>Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <div class="flex px-2 py-1">
-                                                    <div class="flex flex-col justify-center">
-                                                        <h6 class="mb-0 text-sm leading-normal">John Michael</h6>
-                                                        <p class="mb-0 text-xs leading-tight text-slate-400">
-                                                            john@creative-tim.com</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span class="text-xs font-semibold leading-tight text-slate-400">Laki -
-                                                    Laki</span>
-                                            </td>
-                                            <td
-                                                class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span class="text-xs font-semibold leading-tight text-slate-400">Jln.
-                                                    Patimura no.13</span>
-                                            </td>
-                                            <td
-                                                class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span
-                                                    class="bg-gradient-to-tl from-green-600 to-lime-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Online</span>
-                                            </td>
-                                            <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap text-center shadow-transparent">
-                                                <a class="inline-block px-4 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 hover:scale-102 active:opacity-85 bg-x-25 text-slate-700"
-                                                    href="javascript:;"><i class="mr-2 fas fa-pencil-alt text-slate-700"
-                                                        aria-hidden="true"></i>Edit</a>
-                                                <a class="relative z-10 inline-block px-4 py-3 mb-0 font-bold text-center text-transparent uppercase align-middle transition-all border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 bg-gradient-to-tl from-red-600 to-rose-400 hover:scale-102 active:opacity-85 bg-x-25 bg-clip-text"
-                                                    href="javascript:;"><i
-                                                        class="mr-2 far fa-trash-alt bg-150 bg-gradient-to-tl from-red-600 to-rose-400 bg-x-25 bg-clip-text"></i>Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <div class="flex px-2 py-1">
-                                                    <div class="flex flex-col justify-center">
-                                                        <h6 class="mb-0 text-sm leading-normal">John Michael</h6>
-                                                        <p class="mb-0 text-xs leading-tight text-slate-400">
-                                                            john@creative-tim.com</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span class="text-xs font-semibold leading-tight text-slate-400">Laki -
-                                                    Laki</span>
-                                            </td>
-                                            <td
-                                                class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span class="text-xs font-semibold leading-tight text-slate-400">Jln.
-                                                    Patimura no.13</span>
-                                            </td>
-                                            <td
-                                                class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span
-                                                    class="bg-gradient-to-tl from-green-600 to-lime-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Online</span>
-                                            </td>
-                                            <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap text-center shadow-transparent">
-                                                <a class="inline-block px-4 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 hover:scale-102 active:opacity-85 bg-x-25 text-slate-700"
-                                                    href="javascript:;"><i class="mr-2 fas fa-pencil-alt text-slate-700"
-                                                        aria-hidden="true"></i>Edit</a>
-                                                <a class="relative z-10 inline-block px-4 py-3 mb-0 font-bold text-center text-transparent uppercase align-middle transition-all border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 bg-gradient-to-tl from-red-600 to-rose-400 hover:scale-102 active:opacity-85 bg-x-25 bg-clip-text"
-                                                    href="javascript:;"><i
-                                                        class="mr-2 far fa-trash-alt bg-150 bg-gradient-to-tl from-red-600 to-rose-400 bg-x-25 bg-clip-text"></i>Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <div class="flex px-2 py-1">
-                                                    <div class="flex flex-col justify-center">
-                                                        <h6 class="mb-0 text-sm leading-normal">John Michael</h6>
-                                                        <p class="mb-0 text-xs leading-tight text-slate-400">
-                                                            john@creative-tim.com</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span class="text-xs font-semibold leading-tight text-slate-400">Laki -
-                                                    Laki</span>
-                                            </td>
-                                            <td
-                                                class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span class="text-xs font-semibold leading-tight text-slate-400">Jln.
-                                                    Patimura no.13</span>
-                                            </td>
-                                            <td
-                                                class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span
-                                                    class="bg-gradient-to-tl from-green-600 to-lime-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Online</span>
-                                            </td>
-                                            <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap text-center shadow-transparent">
-                                                <a class="inline-block px-4 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 hover:scale-102 active:opacity-85 bg-x-25 text-slate-700"
-                                                    href="javascript:;"><i class="mr-2 fas fa-pencil-alt text-slate-700"
-                                                        aria-hidden="true"></i>Edit</a>
-                                                <a class="relative z-10 inline-block px-4 py-3 mb-0 font-bold text-center text-transparent uppercase align-middle transition-all border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 bg-gradient-to-tl from-red-600 to-rose-400 hover:scale-102 active:opacity-85 bg-x-25 bg-clip-text"
-                                                    href="javascript:;"><i
-                                                        class="mr-2 far fa-trash-alt bg-150 bg-gradient-to-tl from-red-600 to-rose-400 bg-x-25 bg-clip-text"></i>Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <div class="flex px-2 py-1">
-                                                    <div class="flex flex-col justify-center">
-                                                        <h6 class="mb-0 text-sm leading-normal">John Michael</h6>
-                                                        <p class="mb-0 text-xs leading-tight text-slate-400">
-                                                            john@creative-tim.com</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span class="text-xs font-semibold leading-tight text-slate-400">Laki -
-                                                    Laki</span>
-                                            </td>
-                                            <td
-                                                class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span class="text-xs font-semibold leading-tight text-slate-400">Jln.
-                                                    Patimura no.13</span>
-                                            </td>
-                                            <td
-                                                class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span
-                                                    class="bg-gradient-to-tl from-green-600 to-lime-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Online</span>
-                                            </td>
-                                            <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap text-center shadow-transparent">
-                                                <a class="inline-block px-4 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 hover:scale-102 active:opacity-85 bg-x-25 text-slate-700"
-                                                    href="javascript:;"><i class="mr-2 fas fa-pencil-alt text-slate-700"
-                                                        aria-hidden="true"></i>Edit</a>
-                                                <a class="relative z-10 inline-block px-4 py-3 mb-0 font-bold text-center text-transparent uppercase align-middle transition-all border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 bg-gradient-to-tl from-red-600 to-rose-400 hover:scale-102 active:opacity-85 bg-x-25 bg-clip-text"
-                                                    href="javascript:;"><i
-                                                        class="mr-2 far fa-trash-alt bg-150 bg-gradient-to-tl from-red-600 to-rose-400 bg-x-25 bg-clip-text"></i>Delete</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+        <div class="flex flex-col my-6 mx-4 rounded-2xl shadow-xl shadow-gray-200">
+            <div class="overflow-x-auto rounded-2xl">
+                <div class="inline-block min-w-full align-middle">
+                    <div class="overflow-hidden shadow-lg">
+                        <table class="min-w-full divide-y divide-gray-200 table-fixed">
+                            <thead class="bg-white">
+                                <tr>
+                                    <th scope="col"
+                                        class="p-4 text-xs font-medium text-left text-gray-500 uppercase lg:p-5">
+                                        Name
+                                    </th>
+                                    <th scope="col"
+                                        class="p-4 text-xs font-medium text-left text-gray-500 uppercase lg:p-5">
+                                        Jenis Kelamin
+                                    </th>
+                                    <th scope="col"
+                                        class="p-4 text-xs font-medium text-left text-gray-500 uppercase lg:p-5">
+                                        Alamat
+                                    </th>
+                                    <th scope="col"
+                                        class="p-4 text-xs font-medium text-left text-gray-500 uppercase lg:p-5">
+                                        Status
+                                    </th>
+                                    <th scope="col"
+                                        class="p-4 text-xs font-medium text-center text-gray-500 uppercase lg:p-5">
+                                        <button type="button" data-modal-toggle="add-user-modal"
+                                            class="text-white bg-gradient-to-br from-pink-500 to-voilet-500 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 text-center inline-flex items-center shadow-md shadow-gray-300 hover:scale-[1.02] transition-transform">
+                                            <svg class="mr-2 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                            </svg>
+                                            Tambah Juri
+                                        </button>
+                                    </th>
+                                    <th scope="col" class="p-4 lg:p-5 ">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-100">
+                                    <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap lg:p-5 lg:mr-0">
+                                        <div class="text-sm font-normal text-gray-500">
+                                            <div class="text-base font-semibold text-gray-900">Khairullah Zikri</div>
+                                            <div class="text-sm font-normal text-gray-500">KhairullahZikri@yahoo.com</div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap lg:p-5">Laki - Laki
+                                    </td>
+                                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap lg:p-5">
+                                        Jln.Patimura No.13</td>
+                                    <td class="p-4 text-base font-normal text-gray-900 whitespace-nowrap lg:p-5">JURI</td>
+                                    <td class="p-4 space-x-2 whitespace-nowrap lg:p-5">
+                                        <button type="button" data-modal-toggle="edit-user-modal"
+                                            class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 hover:text-gray-900 hover:scale-[1.02] transition-all">
+                                            <svg class="mr-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z">
+                                                </path>
+                                                <path fill-rule="evenodd"
+                                                    d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            Edit user
+                                        </button>
+                                        <button type="button" data-modal-toggle="delete-user-modal"
+                                            class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-gradient-to-br from-red-400 to-red-600 rounded-lg shadow-md shadow-gray-300 hover:scale-[1.02] transition-transform">
+                                            <svg class="mr-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            Delete user
+                                        </button>
+                                    </td>
+                                    <td class="p-4 w-4 lg:p-5 ">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    {{-- @include('components.modals.modalDelete')
+    @include('components.modals.modalEdit') --}}
 @endsection

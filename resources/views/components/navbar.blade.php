@@ -31,15 +31,17 @@
         <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
             <div class="flex items-center md:ml-auto md:pr-4">
             </div>
-            <ul class="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full">
-                <li class="flex items-center">
-                    <a href="./pages/sign-in.html"
-                        class="block px-0 py-2 text-sm font-semibold transition-all ease-nav-brand text-slate-500">
-                        <i class="fa fa-user sm:mr-1"></i>
-                        <span class="hidden sm:inline">Sign Out</span>
-                    </a>
-                </li>
-            </ul>
+            <div class="flex items-center">
+                <a href="#"
+                    class="text-white bg-gradient-to-br from-pink-500 to-voilet-500 hover:scale-[1.02] shadow-md shadow-gray-300 transition-transform font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-3">
+                    <svg class="mr-2 -ml-1 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+                    </svg>
+                    Log Out
+                </a>
+            </div>
         </div>
     </div>
 </nav>

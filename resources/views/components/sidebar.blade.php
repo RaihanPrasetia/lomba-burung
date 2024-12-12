@@ -272,3 +272,5 @@
         </ul>
     </div>
 </aside>
+
+<div class="hidden fixed inset-0 z-10 bg-gray-900 opacity-50" id="sidebarBackdrop"></div>
