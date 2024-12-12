@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Competition;
 use Illuminate\Http\Request;
 
 class perlombaanController extends Controller
@@ -11,8 +12,11 @@ class perlombaanController extends Controller
      */
     public function index()
     {
-        return view('pages.perlombaan.index');
+        $competitions = Competition::all();
+
+        return view('pages.perlombaan.index', compact('competitions'));
     }
+
 
     /**
      * Show the form for creating a new resource.
