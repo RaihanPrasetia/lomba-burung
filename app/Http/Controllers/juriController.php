@@ -31,22 +31,22 @@ class juriController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
-            'email' => 'required|email|unique:juris,email',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
             'jenis_kelamin' => 'required',
             'alamat' => 'required',
         ]);
 
-        User::create([
-            'nama' => $request->nama,
+        $user = User::create([
+            'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
-            'role' => $request->role ?? 'juri',
+            'role' => 'juri',
         ]);
-        return redirect()->route('juris.index');
+        return redirect()->route('juri.index');
     }
 
 

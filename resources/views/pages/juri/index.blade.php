@@ -59,6 +59,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($users as $index => $user)
+                                        {{-- @dd($user) --}}
                                             <tr>
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>{{ $user->name }}</td>
