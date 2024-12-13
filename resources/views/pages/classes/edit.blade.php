@@ -56,6 +56,20 @@
                                     </div>
                                 @endforeach
                             </div>
+                            <div class="form-group">
+                                <label>Pilih Criteria</label><br>
+                                @foreach ($criterias as $criteria)
+                                    <div class="custom-control custom-checkbox">
+                                        <input class="custom-control-input" type="checkbox"
+                                            id="criteria_{{ $criteria->id }}" value="{{ $criteria->id }}"
+                                            name="criteria_id[]"
+                                            {{ $class->class_criterias->pluck('criteria_id')->contains($criteria->id) ? 'checked' : '' }}>
+                                        <label for="criteria_{{ $criteria->id }}"
+                                            class="custom-control-label">{{ $criteria->name }} -
+                                            <span>{{ $criteria->weight }}</span></label>
+                                    </div>
+                                @endforeach
+                            </div>
 
                         </div>
 

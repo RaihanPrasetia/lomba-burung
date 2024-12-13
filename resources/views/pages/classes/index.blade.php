@@ -49,8 +49,9 @@
                                     <thead>
                                         <tr>
                                             <th>Nama Class</th>
-                                            <th>Nama Juri</th>
                                             <th>Nama Perlombaan</th>
+                                            <th>Nama Juri</th>
+                                            <th>Daftar Criteria</th>
                                             <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
@@ -61,41 +62,55 @@
                                                     <!-- Mengakses nama kelas -->
                                                     <td>{{ $class->name }}</td>
 
-                                                    <!-- Mengakses juri yang terkait dengan kelas -->
-                                                    <td>
-                                                        @foreach ($class->class_participants as $participant)
-                                                            {{ $participant->judge->name }} <br>
-                                                        @endforeach
-                                                    </td>
-
                                                     <!-- Mengakses nama kompetisi -->
                                                     <td>{{ $class->competition->name }}</td>
 
-                                                    <td class="text-center">
-                                                        <!-- Tombol Aksi -->
-                                                        <a href="{{ route('class.edit', $class->id) }}"
-                                                            class="btn btn-warning">Edit</a>
-
-                                                        <button type="button" class="btn btn-danger delete-btn"
-                                                            data-id="{{ $class->id }}" data-name="{{ $class->name }}">
-                                                            Hapus
-                                                        </button>
-
-                                                        <form id="delete-form-{{ $class->id }}"
-                                                            action="{{ route('class.destroy', $class->id) }}"
-                                                            method="POST" style="display:none;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                        </form>
+                                                    <!-- Mengakses nama juri -->
+                                                    <td>
+                                                        <ul class="pl-4 mb-0">
+                                                            @foreach ($class->class_participants as $participant)
+                                                                <li> {{ $participant->judge->name }}</li>
+                                                            @endforeach
+                                                        </ul>
                                                     </td>
 
-                                                </tr>
-                                            @endforeach
+                                                    <!-- Mengakses kriteria -->
+                                                    <td>
+                                                        <ul class="pl-4 mb-0">
+                                                            @if ($class->class_criterias->isNotEmpty())
+                                                                @foreach ($class->class_criterias as $class_criteria)
+                                                                    <li>
+                                                                        {{ $class_criteria->criteria->name }}
+                                                                        ({{ $class_criteria->criteria->weight }})
+                                                                    </li>
+                                                                @endforeach
+                                                            @else
+                                                        </ul>
+                                                        <span class="text-muted">Tidak ada kriteria</span>
+                                            @endif
+                                            </td>
+
+                                            <!-- Tombol Aksi -->
+                                            <td class="text-center">
+                                                <a href="{{ route('class.edit', $class->id) }}"
+                                                    class="btn btn-warning">Edit</a>
+                                                <button type="button" class="btn btn-danger delete-btn"
+                                                    data-id="{{ $class->id }}" data-name="{{ $class->name }}">
+                                                    Hapus
+                                                </button>
+                                                <form id="delete-form-{{ $class->id }}"
+                                                    action="{{ route('class.destroy', $class->id) }}" method="POST"
+                                                    style="display:none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            </td>
+                                            </tr>
                                         @endforeach
-
-
+                                        @endforeach
                                     </tbody>
                                 </table>
+
                             </div>
                             <!-- /.card-body -->
                         </div>

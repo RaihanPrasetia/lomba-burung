@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Competition;
+use App\Models\Participant;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class dashboardController extends Controller
@@ -11,7 +14,10 @@ class dashboardController extends Controller
      */
     public function index()
     {
-        return view('pages.dashboard');
+        $judgesCount = User::where('role', 'juri')->count();
+        $eventCount = Competition::all()->count();
+        $pesertaCount = Participant::all()->count();
+        return view('pages.dashboard', compact('judgesCount', 'eventCount', 'pesertaCount'));
     }
 
     /**

@@ -51,6 +51,18 @@
                                         </div>
                                     @endforeach
                                 </div>
+                                <div class="form-group">
+                                    <label>Pilih Criteria</label><br>
+                                    @foreach ($criterias as $criteria)
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input" type="checkbox"
+                                                id="criteria_{{ $criteria->id }}" value="{{ $criteria->id }}"
+                                                name="criteria_id[]">
+                                            <label for="criteria_{{ $criteria->id }}" class="custom-control-label">
+                                                {{ $criteria->name }} - <span>{{ $criteria->weight }}</span></label>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>

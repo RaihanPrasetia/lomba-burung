@@ -44,4 +44,8 @@ class Classes extends Model
     {
         return $this->hasMany(Score::class);
     }
+    public function class_criterias()
+    {
+        return $this->hasMany(Class_Criteria::class, 'class_id');
+    }
 }

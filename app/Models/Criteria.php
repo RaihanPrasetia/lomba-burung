@@ -27,4 +27,8 @@ class Criteria extends Model
     {
         return $this->hasMany(Score::class);
     }
+    public function class_criterias()
+    {
+        return $this->hasMany(Class_Criteria::class);
+    }
 }
