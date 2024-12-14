@@ -63,4 +63,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Class_Participants::class);
     }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isJuri()
+    {
+        return $this->role === 'juri';
+    }
 }

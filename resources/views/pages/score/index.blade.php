@@ -24,6 +24,35 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
+                <div class="card-body">
+                    @if (session('success'))
+                        <div class="mb-2 p-2 bg-success text-white border border-success rounded-lg shadow-sm">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="mb-2 p-2 bg-danger text-white border border-danger rounded-lg shadow-sm">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nama Criteria</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Peserta 1</td>
+                                <td class="text-center">
+                                    <a>Nilai</a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <!-- /.container-fluid -->
         </section>

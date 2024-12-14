@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Score;
+use App\Models\Competition;
 use Illuminate\Http\Request;
 
-class scoreController extends Controller
+class guestController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Ambil data score dengan relasi participant dan class
-        $scores = Score::with(['participant', 'class'])
-            ->get();
+        $competitions = Competition::all(); // Ambil semua kompetisi
+        $classes = collect(); // Default kosong
 
-        // Kelompokkan berdasarkan class_id
-        $groupedScores = $scores->groupBy(function ($item) {
-            return $item->class->name; // Misalnya, berdasarkan nama kelas (atau field lain)
-        });
+        if ($request->filled('competition_id')) {
+            $competition = Competition::find($request->competition_id);
+            if ($competition) {
+                $classes = $competition->classes; // Ambil kelas berdasarkan kompetisi
+            }
+        }
 
-        return view('pages.score.index', compact('groupedScores'));
+        return view('pages.user.index', compact('competitions', 'classes'));
     }
-
 
     /**
      * Show the form for creating a new resource.
