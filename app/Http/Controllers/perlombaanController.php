@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Competition;
 use Illuminate\Http\Request;
 
 class PerlombaanController extends Controller
