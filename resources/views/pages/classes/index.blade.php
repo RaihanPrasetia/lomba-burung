@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'Class')
+
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
