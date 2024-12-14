@@ -23,10 +23,10 @@ Route::get('/logout', [authController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
 
-
-    Route::get('/perlombaan', [perlombaanController::class, 'index'])->name('perlombaan.index');
-    Route::get('/class', [classesController::class, 'index'])->name('class.index');
-    Route::get('/criteria', [criteriaController::class, 'index'])->name('criteria.index');
+    // Routes Perlombaan
+    Route::resource('perlombaan', PerlombaanController::class);
+    Route::resource('class', classesController::class);
+    Route::resource('/criteria', criteriaController::class);
     Route::get('/peserta', [pesertaController::class, 'index'])->name('peserta.index');
     Route::get('/juri', [juriController::class, 'index'])->name('juri.index');
 

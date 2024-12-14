@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('competition_id')->constrained('competitions')->onDelete('cascade');
-            $table->foreignId('judge_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
