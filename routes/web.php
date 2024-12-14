@@ -33,4 +33,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/penilaian', [penilaianController::class, 'index'])->name('penilaian.index');
     Route::get('/score', [scoreController::class, 'index'])->name('score.index');
+
+
+    Route::resource('juris', JuriController::class);
+    Route::post('/juri', [JuriController::class, 'store'])->name('juri.store');
 });

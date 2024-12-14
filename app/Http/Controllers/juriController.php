@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class juriController extends Controller
 {
@@ -10,8 +12,9 @@ class juriController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        return view('pages.juri.index');
+    {   
+        $users = User::where('role', 'juri')->get();
+        return view('pages.juri.index', ['users' => $users]);
     }
 
     /**
@@ -27,8 +30,25 @@ class juriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
+            'jenis_kelamin' => 'required',
+            'alamat' => 'required',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'alamat' => $request->alamat,
+            'role' => 'juri',
+        ]);
+        return redirect()->route('juri.index');
     }
+
 
     /**
      * Display the specified resource.
