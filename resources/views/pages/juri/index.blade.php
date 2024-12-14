@@ -11,7 +11,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
                             <li class="breadcrumb-item active">Juri</li>
                         </ol>
                     </div>
@@ -38,7 +38,7 @@
                                 </div> --}}
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-default" data-toggle="modal"
-                                        data-target="#modal-lg">
+                                        data-target="#juriModal" onclick="resetForm()">
                                         Tambah Juri
                                     </button>
                                 </div>
@@ -59,7 +59,6 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($users as $index => $user)
-                                        {{-- @dd($user) --}}
                                             <tr>
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>{{ $user->name }}</td>
@@ -67,16 +66,18 @@
                                                 <td>{{ $user->jenis_kelamin }}</td>
                                                 <td>{{ $user->alamat }}</td>
                                                 <td>{{ $user->role }}</td>
-                                                <td><a class="btn btn-info btn-sm" href="#">
+                                                <td><a class="btn btn-info btn-sm" data-toggle="modal"
+                                                        data-target="#juriModal"
+                                                        onclick="editForm({{ json_encode($user) }})">
                                                         <i class="fas fa-pencil-alt">
                                                         </i>
                                                         Edit
                                                     </a>
-                                                    <a class="btn btn-danger btn-sm" href="#">
-                                                        <i class="fas fa-trash">
-                                                        </i>
-                                                        Delete
-                                                    </a>
+                                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                                        data-target="#modalDelete" data-id="{{ $user->id }}"
+                                                        data-name="{{ $user->name }}">
+                                                        <i class="fas fa-trash"></i> Hapus
+                                                    </button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -93,5 +94,40 @@
         </section>
         <!-- /.content -->
     </section>
-    @include('components.modals.modalAdd')
+    @include('components.modals.juriModal')
+    @include('components.modals.deleteModal')
 @endsection
+
+<script type="text/javascript">
+    function resetForm() {
+        document.getElementById('juriForm').reset();
+        document.getElementById('method').value = 'POST';
+        document.getElementById('juriForm').action = "{{ route('juri.store') }}";
+        document.getElementById('modalTitle').textContent = 'Tambah Juri';
+        document.getElementById('soru').textContent = 'Simpan Juri';
+    }
+
+    function editForm(user) {
+
+        resetForm();
+        // Isi nilai form dengan data juri
+        document.getElementById('name').value = user.name;
+        document.getElementById('email').value = user.email;
+        document.getElementById('password').value = ''; // Kosongkan password
+        document.getElementById('jenis_kelamin').value = user.jenis_kelamin;
+        document.getElementById('alamat').value = user.alamat;
+
+
+        // Set action form ke 'update' (PUT)
+        const form = document.getElementById('juriForm');
+        form.action = `/juri/${user.id}`; // Pastikan ID pengguna benar
+        document.getElementById('method').value = 'PUT'; // Set method jadi PUT
+
+        // Ubah judul modal
+        document.getElementById('modalTitle').textContent = 'Edit Juri';
+        document.getElementById('soru').textContent = 'Update Juri';
+
+        // Password tidak wajib diisi saat edit
+        document.getElementById('password').required = false;
+    }
+</script>
