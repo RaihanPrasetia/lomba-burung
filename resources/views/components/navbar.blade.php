@@ -10,9 +10,9 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-            <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;">
+            <a href="{{ route('logout') }}" class="btn btn-danger float-right" style="margin-right: 5px;">
                 Log Out <i class="fas fa-solid fa-left"></i>
-              </button>
+            </a>
         </li>
     </ul>
 </nav>
