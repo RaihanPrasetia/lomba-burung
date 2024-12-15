@@ -103,7 +103,7 @@
         document.getElementById('method').value = 'POST';
         document.getElementById('juriForm').action = "{{ route('juri.store') }}";
         document.getElementById('modalTitle').textContent = 'Tambah Juri';
-        document.getElementById('soru').textContent = 'Simpan Juri';
+        document.getElementById('title').textContent = 'Simpan Juri';
     }
 
     function editForm(user) {
@@ -124,7 +124,7 @@
 
         // Ubah judul modal
         document.getElementById('modalTitle').textContent = 'Edit Juri';
-        document.getElementById('soru').textContent = 'Update Juri';
+        document.getElementById('title').textContent = 'Update Juri';
 
         // Password tidak wajib diisi saat edit
         document.getElementById('password').required = false;
@@ -132,6 +132,7 @@
 
     function deleteForm(user) {
         document.getElementById('JuriName').textContent = user.name;
+        document.getElementById('tittle').textContent = 'Hapus Juri';
 
         const form = document.getElementById('deleteForm');
         form.action = `/juri/${user.id}`;

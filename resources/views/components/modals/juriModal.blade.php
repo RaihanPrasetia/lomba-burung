@@ -54,7 +54,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" id="soru" class="btn btn-primary"></button>
+                    <button type="submit" id="title" class="btn btn-primary"></button>
                 </div>
             </form>
         </div>
