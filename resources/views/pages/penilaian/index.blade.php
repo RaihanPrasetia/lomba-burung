@@ -74,14 +74,22 @@
                             @if ($groupedScores)
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
-                                        <tr>
-                                            <th>Nama Peserta</th>
-                                            <th>Nama Burung</th>
-                                            <th>No Gantang</th>
-                                            <th>Kontak</th>
-                                            <th>Status</th>
-                                            <th class="text-center">Aksi</th>
-                                        </tr>
+                                        @if (Auth::user()->role === 'admin')
+                                            <tr>
+                                                <th>Nama Peserta</th>
+                                                <th>Nama Burung</th>
+                                                <th>No Gantang</th>
+                                                <th>Kontak</th>
+                                                <th>Status</th>
+                                                <th class="text-center">Aksi</th>
+                                            </tr>
+                                        @elseif(Auth::user()->role === 'juri')
+                                            <tr>
+                                                <th>No Gantang</th>
+                                                <th>Status</th>
+                                                <th class="text-center">Aksi</th>
+                                            </tr>
+                                        @endif
                                     </thead>
                                     <tbody>
                                         @if (Auth::user()->role === 'admin')
@@ -120,10 +128,7 @@
                                                     $participant = $scores->first()->participant; // Ambil data peserta
                                                 @endphp
                                                 <tr>
-                                                    <td>{{ $participant->name }}</td>
                                                     <td>{{ $participant->bird_name }}</td>
-                                                    <td>{{ $participant->no_gantang }}</td>
-                                                    <td>{{ $participant->contact_info }}</td>
                                                     <td>{{ $participant->status }}</td>
                                                     <td class="text-center">
                                                         <a

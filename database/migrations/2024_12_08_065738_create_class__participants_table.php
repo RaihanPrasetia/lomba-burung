@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('class_participants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('class_id')->constrained('classes')->onDelete('cascade');
-            $table->foreignId('participant_id')->nullable()->constrained('participants')->onDelete('cascade');
             $table->foreignId('judge_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

@@ -22,7 +22,7 @@ class pesertaController extends Controller
         $competitionId = $request->input('competition_id');
         $classId = $request->input('class_id');
 
-        $competitions = Competition::all()->where('status', 'Berlangsung');
+        $competitions = Competition::all();
         $classes = Classes::where('competition_id', $competitionId)->get(); // Filter classes based on competition
 
         // Fetch the participants in the selected class if competition_id and class_id are chosen
@@ -49,7 +49,7 @@ class pesertaController extends Controller
     public function create(Request $request)
     {
         // Handle POST submission to fetch related data
-        $competitions = Competition::all();
+        $competitions = Competition::whereIn('status', ['Akan Datang', 'Berlangsung'])->get();
         $classes = [];
 
         if ($request->has('competition_id')) {
@@ -134,7 +134,8 @@ class pesertaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $peserta = Participant::findOrFail($id);
+        return view('pages.peserta.edit', compact('peserta'));
     }
 
     /**
@@ -142,7 +143,23 @@ class pesertaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'bird_name' => 'required|string',
+            'no_gantang' => 'required|string',
+            'contact_info' => 'required|string',
+        ]);
+
+        // Menemukan data perlombaan berdasarkan ID dan memperbarui data
+        $participant = Participant::findOrFail($id);
+        $participant->update([
+            'name' => $validated['name'],
+            'bird_name' => $validated['bird_name'],
+            'no_gantang' => $validated['no_gantang'],
+            'contact_info' => $validated['contact_info'],
+        ]);
+
+        return redirect()->route('peserta.index')->with('success', 'Perlombaan berhasil diperbarui.');
     }
 
     /**
@@ -150,6 +167,9 @@ class pesertaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $participant = Participant::findOrFail($id);
+        $participant->delete();
+
+        return redirect()->route('peserta.index')->with('success', 'Peserta berhasil dihapus.');
     }
 }

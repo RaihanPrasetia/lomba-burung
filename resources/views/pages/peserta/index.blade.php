@@ -62,8 +62,16 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            @if (session('success'))
+                                <div class="mb-2 p-2 bg-success text-white border border-success rounded-lg shadow-sm">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
                             @if (session('error'))
-                                <div class="alert alert-danger">{{ session('error') }}</div>
+                                <div class="mb-2 p-2 bg-danger text-white border border-danger rounded-lg shadow-sm">
+                                    {{ session('error') }}
+                                </div>
                             @endif
 
                             @if (isset($classPesertas) && $classPesertas->isNotEmpty())
@@ -75,6 +83,7 @@
                                             <th>No Gantang</th>
                                             <th>Kontak</th>
                                             <th>Status</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -85,6 +94,22 @@
                                                 <td>{{ $classPeserta->participant->no_gantang }}</td>
                                                 <td>{{ $classPeserta->participant->contact_info }}</td>
                                                 <td>{{ $classPeserta->participant->status }}</td>
+                                                <td class="text-center">
+                                                    <!-- Action buttons, e.g. Edit, Delete -->
+                                                    <a href="{{ route('peserta.edit', $classPeserta->participant->id) }}"
+                                                        class="btn btn-warning">Edit</a>
+                                                    <button type="button" class="btn btn-danger delete-btn"
+                                                        data-id="{{ $classPeserta->participant->id }}"
+                                                        data-name="{{ $classPeserta->participant->name }}">
+                                                        Hapus
+                                                    </button>
+                                                    <form id="delete-form-{{ $classPeserta->participant->id }}"
+                                                        action="{{ route('peserta.destroy', $classPeserta->participant->id) }}"
+                                                        method="POST" style="display:none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -98,4 +123,20 @@
             </div>
         </div>
     </section>
+    <script>
+        // Mengambil semua tombol dengan kelas delete-btn
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Ambil ID dan nama kelas dari data-atribut
+                const classId = this.getAttribute('data-id');
+                const className = this.getAttribute('data-name');
+
+                // Konfirmasi penghapusan
+                if (confirm('Apakah Anda yakin ingin menghapus Peserta "' + className + '"?')) {
+                    // Kirimkan form penghapusan yang terkait
+                    document.getElementById('delete-form-' + classId).submit();
+                }
+            });
+        });
+    </script>
 @endsection

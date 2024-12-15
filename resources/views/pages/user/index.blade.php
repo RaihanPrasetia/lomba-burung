@@ -1,66 +1,94 @@
 @extends('layouts.user')
 
 @section('content')
-    <main class="mt-3">
-        <!-- Content Header -->
-        <section class="content-header mb-3">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h3>Data Peringkat</h3>
-                    </div>
-                    <div class="col-sm-6 d-flex justify-content-end">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">Home</li>
-                                <li class="breadcrumb-item active">@yield('breadcrumb', 'Event')</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="d-flex my-2 justify-content-end align-items-center">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                    <li class="breadcrumb-item active">Hasil SAW</li>
+                </ol>
             </div>
-        </section>
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header row">
+                            <h3 class="card-title col-sm-6 d-flex align-items-center">Hasil Perlombaan</h3>
+                            <div class="col-sm-6 d-flex justify-content-end" style="gap: 8px">
+                                <!-- Dropdown Kompetisi -->
+                                <form action="{{ route('home') }}" method="GET">
+                                    <select name="competition_id" class="form-control" onchange="this.form.submit()">
+                                        <option value="">Pilih Kompetisi</option>
+                                        @foreach ($competitions as $competition)
+                                            <option value="{{ $competition->id }}"
+                                                {{ request('competition_id') == $competition->id ? 'selected' : '' }}>
+                                                {{ $competition->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </form>
 
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row mb-3">
-                    <div class="col-sm-3">
-                        <form action="{{ route('home') }}" method="GET">
-                            <label for="selectCompetition">Pilih Event</label>
-                            <select id="selectCompetition" class="form-select" name="competition_id"
-                                onchange="this.form.submit()">
-                                <option value="" disabled selected>Pilih Event</option>
-                                @foreach ($competitions as $competition)
-                                    <option value="{{ $competition->id }}"
-                                        {{ request('competition_id') == $competition->id ? 'selected' : '' }}>
-                                        {{ $competition->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </form>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        @if ($classes->isNotEmpty())
-                            <div class="d-flex justify-content-center align-items-center py-3 gap-3 flex-wrap">
-                                @foreach ($classes as $class)
-                                    <a href="#" class="btn btn-dark">{{ $class->name }}</a>
-                                @endforeach
+                                <!-- Dropdown Kelas -->
+                                @if (request('competition_id'))
+                                    <form action="{{ route('home') }}" method="GET">
+                                        <input type="hidden" name="competition_id" value="{{ request('competition_id') }}">
+                                        <select name="class_id" class="form-control" onchange="this.form.submit()">
+                                            <option value="">Pilih Kelas</option>
+                                            @foreach ($classes as $class)
+                                                <option value="{{ $class->id }}"
+                                                    {{ request('class_id') == $class->id ? 'selected' : '' }}>
+                                                    {{ $class->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </form>
+                                @endif
                             </div>
-                        @else
-                            <p class="text-center">Tidak ada kelas yang tersedia untuk event ini.</p>
-                        @endif
+                        </div>
+                        <div class="card-body">
+                            @if (session('error'))
+                                <div class="alert alert-danger">{{ session('error') }}</div>
+                            @endif
+
+                            @if ($criterias->isNotEmpty() && $results->isNotEmpty())
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama Peserta</th>
+                                            @foreach ($criterias as $criteria)
+                                                <th>{{ $criteria->name }}</th>
+                                            @endforeach
+                                            <th>Total</th>
+                                            <th>Ranking</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($results as $result)
+                                            <tr>
+                                                <td>{{ $result['participant']->name }}</td>
+                                                @foreach ($criterias as $criteria)
+                                                    <td>
+                                                        {{-- Menampilkan skor ter-normalisasi dan berbobot --}}
+                                                        {{ number_format($result['scores'][$criteria->id] ?? 0, 4) }}
+                                                    </td>
+                                                @endforeach
+                                                <td>{{ number_format($result['total'], 4) }}</td>
+                                                <td>#{{ $result['rank'] }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <p class="text-center">Silakan pilih kompetisi dan kelas untuk melihat hasil.</p>
+                            @endif
+                        </div>
                     </div>
                 </div>
-                <div>
-                    @yield('ranking')
-                </div>
             </div>
-        </section>
-
-
-
-
-    </main>
+        </div>
+    </section>
 @endsection
