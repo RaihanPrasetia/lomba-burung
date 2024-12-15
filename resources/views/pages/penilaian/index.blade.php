@@ -19,7 +19,6 @@
             </div>
         </div>
     </section>
-
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -85,13 +84,41 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if ($groupedScores)
+                                        @if (Auth::user()->role === 'admin')
+                                            @foreach ($groupedScores as $judgeId => $groupByJudge)
+                                                @php
+                                                    $judge = \App\Models\User::find($judgeId);
+                                                @endphp
+                                                <tr>
+                                                    <td colspan="6" class="text-center">
+                                                        <strong>Juri: {{ $judge->name }}</strong>
+                                                    </td>
+                                                </tr>
+
+                                                @foreach ($groupByJudge as $participantId => $scores)
+                                                    @php
+                                                        $participant = $scores->first()->participant; // Ambil data peserta
+                                                    @endphp
+                                                    <tr>
+                                                        <td>{{ $participant->name }}</td>
+                                                        <td>{{ $participant->bird_name }}</td>
+                                                        <td>{{ $participant->no_gantang }}</td>
+                                                        <td>{{ $participant->contact_info }}</td>
+                                                        <td>{{ $participant->status }}</td>
+                                                        <td class="text-center">
+                                                            <a
+                                                                href="{{ route('penilaian.edit', ['penilaian' => $participant->id, 'class_id' => $scores->first()->class_id]) }}">
+                                                                Beri Nilai
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @endforeach
+                                        @elseif(Auth::user()->role === 'juri')
                                             @foreach ($groupedScores as $participantId => $scores)
                                                 @php
                                                     $participant = $scores->first()->participant; // Ambil data peserta
-                                                    $judge = $scores->first()->judge; // Ambil data juri
                                                 @endphp
-                                                <!-- Baris Peserta -->
                                                 <tr>
                                                     <td>{{ $participant->name }}</td>
                                                     <td>{{ $participant->bird_name }}</td>
@@ -106,20 +133,15 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                        @else
-                                            <!-- Jika tidak ada data -->
-                                            <tr>
-                                                <td colspan="6" class="text-center">Tidak ada data peserta</td>
-                                            </tr>
                                         @endif
+
                                     </tbody>
-
                                 </table>
+                            @else
+                                <tr>
+                                    <td colspan="6" class="text-center">Tidak ada data peserta</td>
+                                </tr>
                             @endif
-
-
-
-
                         </div>
                     </div>
                 </div>

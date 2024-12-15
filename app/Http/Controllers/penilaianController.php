@@ -46,11 +46,18 @@ class penilaianController extends Controller
                 ->where('judge_id', $userId) // Hanya ambil skor dengan judge_id = userId
                 ->get()
                 ->groupBy('participant_id'); // Kelompokkan berdasarkan participant_id
+        } elseif ($role === 'admin' && $request->has('class_id')) {
+            // Jika admin, ambil semua skor dikelompokkan berdasarkan judge_id dan participant_id
+            $groupedScores = Score::with(['participant', 'class', 'judge'])
+                ->where('class_id', $request->class_id)
+                ->get()
+                ->groupBy(['judge_id', 'participant_id']); // Kelompokkan berdasarkan judge_id dan participant_id
         }
 
         // Kembalikan view
         return view('pages.penilaian.index', compact('competitions', 'classes', 'groupedScores'));
     }
+
 
 
 
