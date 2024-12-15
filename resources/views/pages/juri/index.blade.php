@@ -74,8 +74,7 @@
                                                         Edit
                                                     </a>
                                                     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                                        data-target="#modalDelete" data-id="{{ $user->id }}"
-                                                        data-name="{{ $user->name }}">
+                                                        data-target="#modalDelete" onclick="deleteForm({{ $user }})">
                                                         <i class="fas fa-trash"></i> Hapus
                                                     </button>
                                                 </td>
@@ -129,5 +128,12 @@
 
         // Password tidak wajib diisi saat edit
         document.getElementById('password').required = false;
+    }
+
+    function deleteForm(user) {
+        document.getElementById('JuriName').textContent = user.name;
+
+        const form = document.getElementById('deleteForm');
+        form.action = `/juri/${user.id}`;
     }
 </script>

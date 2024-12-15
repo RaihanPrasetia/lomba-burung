@@ -8,17 +8,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                @if(session('userName'))
-                    <p>Anda yakin ingin menghapus juri <b>{{ session('userName') }}</b>?</p>
-                @else
-                    <p>Nama juri tidak ditemukan.</p>
-                @endif
+                <p>Anda yakin ingin menghapus juri <b id="JuriName"></b>?</p>
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <form action="{{ route('juri.destroy', ['juri' => $user->id]) }}" method="POST" style="display: inline;">
+                <form id="deleteForm" action="#" method="POST" style="display: inline;">
                     @csrf
-                    @method('DELETE')
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <button type="submit" class="btn btn-danger">Hapus Juri</button>
                 </form>
             </div>

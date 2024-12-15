@@ -106,13 +106,11 @@ class juriController extends Controller
     {
         // Mencari pengguna berdasarkan ID
         $user = User::findOrFail($id);
-        $userName = $user->name;
 
         // Menghapus pengguna
         $user->delete();
 
         // Mengalihkan ke halaman dengan data nama juri yang dihapus
-        return redirect()->route('juri.index')->with('success', 'Juri berhasil dihapus.')
-            ->with('userName', $userName);
+        return redirect()->route('juri.index')->with('success', 'Juri berhasil dihapus.');
     }
 }
