@@ -12,7 +12,7 @@ class juriController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {   
+    {
         $users = User::where('role', 'juri')->get();
         return view('pages.juri.index', ['users' => $users]);
     }
@@ -38,7 +38,7 @@ class juriController extends Controller
             'alamat' => 'required',
         ]);
 
-        $user = User::create([
+        User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -46,17 +46,14 @@ class juriController extends Controller
             'alamat' => $request->alamat,
             'role' => 'juri',
         ]);
-        return redirect()->route('juri.index');
+        return redirect()->route('juri.index')->with('success', 'Juri berhasil ditambahkan.');
     }
 
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -69,16 +66,53 @@ class juriController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, String $id)
     {
-        //
+        // Validasi input
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'password' => 'nullable|min:6', // Password opsional
+            'jenis_kelamin' => 'required',
+            'alamat' => 'required',
+        ]);
+
+        // Ambil data pengguna
+        $user = User::findOrFail($id);
+
+        // Perbarui data pengguna
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'alamat' => $request->alamat,
+        ];
+
+        // Perbarui password hanya jika diisi
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        // Update user
+        $user->update($data);
+
+        return redirect()->route('juri.index')->with('success', 'Juri berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        // Mencari pengguna berdasarkan ID
+        $user = User::findOrFail($id);
+        $userName = $user->name;
+
+        // Menghapus pengguna
+        $user->delete();
+
+        // Mengalihkan ke halaman dengan data nama juri yang dihapus
+        return redirect()->route('juri.index')->with('success', 'Juri berhasil dihapus.')
+            ->with('userName', $userName);
     }
 }

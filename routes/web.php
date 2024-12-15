@@ -27,14 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('perlombaan', PerlombaanController::class);
     Route::resource('class', classesController::class);
     Route::resource('/criteria', criteriaController::class);
-    Route::resource('/penilaian', penilaianController::class);
+    Route::resource('/juri', JuriController::class);
     Route::get('/peserta', [pesertaController::class, 'index'])->name('peserta.index');
-    Route::get('/juri', [juriController::class, 'index'])->name('juri.index');
-
+    Route::resource('/penilaian', penilaianController::class);
 
     Route::get('/score', [scoreController::class, 'index'])->name('score.index');
-
-
-    Route::resource('juris', JuriController::class);
-    Route::post('/juri', [JuriController::class, 'store'])->name('juri.store');
 });
