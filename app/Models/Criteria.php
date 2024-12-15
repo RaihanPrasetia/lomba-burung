@@ -29,6 +29,10 @@ class Criteria extends Model
     }
     public function class_criterias()
     {
-        return $this->hasMany(Class_Criteria::class);
+        return $this->hasMany(Class_Criteria::class, 'criteria_id');
+    }
+    public function classes()
+    {
+        return $this->belongsToMany(Classes::class, 'class_criterias', 'criteria_id', 'class_id');
     }
 }
