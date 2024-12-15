@@ -37,6 +37,11 @@ class Classes extends Model
         return $this->hasMany(Class_Participants::class, 'class_id');
     }
 
+    public function class_pesertas()
+    {
+        return $this->hasMany(ClassPeserta::class, 'class_id');
+    }
+
     /**
      * Get the score associated with the class.
      */

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Class_Participants;
 use App\Models\Classes;
 use App\Models\Competition;
 use App\Models\Criteria;
@@ -56,6 +57,9 @@ class scoreController extends Controller
             return redirect()->back()->with('error', 'Tidak ada skor peserta untuk kelas ini.');
         }
 
+        // Hitung jumlah juri pada kelas tersebut
+        $judgeCount = Class_Participants::where('class_id', $classId)->count();
+
         // Normalisasi nilai per kriteria
         $groupedScores = $scores->groupBy('criteria_id');
         $normalizedScores = [];
@@ -66,9 +70,17 @@ class scoreController extends Controller
             $criteriaType = $criterias->where('id', $criteriaId)->first()->type;
 
             foreach ($group as $score) {
+                // Jika ada lebih dari satu juri, hitung rata-rata skor
+                $scoreValue = $score->score;
+                if ($group->count() > 1) {
+                    $averageScore = $group->where('participant_id', $score->participant_id)->avg('score');
+                    $scoreValue = $averageScore; // Ambil rata-rata skor jika ada lebih dari satu juri
+                }
+
+                // Normalisasi berdasarkan jenis kriteria
                 $normalizedValue = ($criteriaType === 'benefit')
-                    ? ($maxValue > 0 ? $score->score / $maxValue : 0)
-                    : ($minValue > 0 ? $minValue / $score->score : 0);
+                    ? ($maxValue > 0 ? $scoreValue / $maxValue : 0)
+                    : ($minValue > 0 ? $minValue / $scoreValue : 0);
 
                 $normalizedScores[$score->participant_id][$criteriaId] = $normalizedValue;
             }
@@ -106,6 +118,7 @@ class scoreController extends Controller
             'classes' => $classes,
         ]);
     }
+
 
 
 

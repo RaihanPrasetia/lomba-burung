@@ -85,27 +85,40 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($groupedScores as $participantId => $scores)
-                                            @php
-                                                $participant = $scores->first()->participant; // Ambil data peserta pertama
-                                            @endphp
+                                        @if ($groupedScores)
+                                            @foreach ($groupedScores as $participantId => $scores)
+                                                @php
+                                                    $participant = $scores->first()->participant; // Ambil data peserta
+                                                    $judge = $scores->first()->judge; // Ambil data juri
+                                                @endphp
+                                                <!-- Baris Peserta -->
+                                                <tr>
+                                                    <td>{{ $participant->name }}</td>
+                                                    <td>{{ $participant->bird_name }}</td>
+                                                    <td>{{ $participant->no_gantang }}</td>
+                                                    <td>{{ $participant->contact_info }}</td>
+                                                    <td>{{ $participant->status }}</td>
+                                                    <td class="text-center">
+                                                        <a
+                                                            href="{{ route('penilaian.edit', ['penilaian' => $participant->id, 'class_id' => $scores->first()->class_id]) }}">
+                                                            Beri Nilai
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <!-- Jika tidak ada data -->
                                             <tr>
-                                                <td>{{ $participant->name }}</td>
-                                                <td>{{ $participant->bird_name }}</td>
-                                                <td>{{ $participant->no_gantang }}</td>
-                                                <td>{{ $participant->contact_info }}</td>
-                                                <td>{{ $participant->status }}</td>
-                                                <td class="text-center">
-                                                    <a
-                                                        href="{{ route('penilaian.edit', ['penilaian' => $participant->id, 'class_id' => $scores->first()->class_id]) }}">
-                                                        Beri Nilai
-                                                    </a>
-                                                </td>
+                                                <td colspan="6" class="text-center">Tidak ada data peserta</td>
                                             </tr>
-                                        @endforeach
+                                        @endif
                                     </tbody>
+
                                 </table>
                             @endif
+
+
+
 
                         </div>
                     </div>

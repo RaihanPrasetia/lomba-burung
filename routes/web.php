@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('class', classesController::class);
     Route::resource('/criteria', criteriaController::class);
     Route::resource('/juri', JuriController::class);
-    Route::get('/peserta', [pesertaController::class, 'index'])->name('peserta.index');
+    Route::resource('/peserta', pesertaController::class);
     Route::resource('/penilaian', penilaianController::class);
 
     Route::get('/score', [scoreController::class, 'index'])->name('score.index');

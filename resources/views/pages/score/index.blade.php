@@ -18,7 +18,6 @@
             </div>
         </div>
     </section>
-
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -80,6 +79,7 @@
                                                 <td>{{ $result['participant']->name }}</td>
                                                 @foreach ($criterias as $criteria)
                                                     <td>
+                                                        {{-- Menampilkan skor ter-normalisasi dan berbobot --}}
                                                         {{ number_format($result['scores'][$criteria->id] ?? 0, 4) }}
                                                     </td>
                                                 @endforeach
