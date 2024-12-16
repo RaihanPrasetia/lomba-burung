@@ -20,15 +20,6 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
 </head>
 
-{{-- <body>
-    <section class="min-h-screen flex bg-gray-800 text-white">
-        @include('components.sidebar')
-        <div class="px-6 py-8 w-full">
-            @yield('content')
-        </div>
-    </section>
-</body> --}}
-
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         @include('components.navbar')
@@ -42,10 +33,6 @@
 
 <!-- jQuery -->
 <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-{{-- <script>
-    $.widget.bridge('uibutton', $.ui.button)
-</script> --}}
 <!-- Bootstrap 4 -->
 <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- overlayScrollbars -->
