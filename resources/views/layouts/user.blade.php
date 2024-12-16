@@ -13,7 +13,10 @@
 <body>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Navbar</span>
+            <span class="navbar-brand">Sistem Penilaian Nominasi Lomba Burung Kicau Berbasis Web Menggunakan Metode
+                Simple
+                Additive Weighting (SAW)
+                Di Kec. Pasir Penyu</span>
         </div>
     </nav>
     <section class="min-h-screen flex bg-gray-200 text-black">

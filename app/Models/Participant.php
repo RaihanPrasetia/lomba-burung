@@ -18,4 +18,9 @@ class Participant extends Model
     {
         return $this->hasMany(Score::class);
     }
+
+    public function class_pesertas()
+    {
+        return $this->hasMany(ClassPeserta::class, 'participant_id');
+    }
 }

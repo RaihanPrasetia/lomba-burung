@@ -37,6 +37,11 @@ class Classes extends Model
         return $this->hasMany(Class_Participants::class, 'class_id');
     }
 
+    public function class_pesertas()
+    {
+        return $this->hasMany(ClassPeserta::class, 'class_id');
+    }
+
     /**
      * Get the score associated with the class.
      */
@@ -44,8 +49,14 @@ class Classes extends Model
     {
         return $this->hasMany(Score::class);
     }
+
     public function class_criterias()
     {
         return $this->hasMany(Class_Criteria::class, 'class_id');
+    }
+
+    public function criterias()
+    {
+        return $this->belongsToMany(Criteria::class, 'class_criterias', 'class_id', 'criteria_id');
     }
 }

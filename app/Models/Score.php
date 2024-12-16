@@ -12,7 +12,7 @@ class Score extends Model
         'judge_id',
         'criteria_id',
         'score',
-        'comment'
+        'comments'
     ];
 
     public function participant()

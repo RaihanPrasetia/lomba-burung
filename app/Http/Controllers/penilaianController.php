@@ -19,43 +19,47 @@ class penilaianController extends Controller
         // Ambil semua kompetisi dengan status Berlangsung
         $competitions = Competition::where('status', 'Berlangsung')->get();
 
-        // Ambil ID user yang sedang login
+        // Ambil ID user dan role user
         $userId = Auth::id();
-        $user = Auth::user();  // Untuk mengambil semua data pengguna
-        $role = $user->role;  // Pastikan ada field 'role' dalam model User
+        $user = Auth::user();
+        $role = $user->role;
 
-        // Variabel yang akan diisi berdasarkan kebutuhan
+        // Variabel default
         $classes = null;
         $groupedScores = null;
 
-        // Jika ada competition_id, filter kelas berdasarkan competition_id
+        // Filter kelas berdasarkan competition_id
         if ($request->has('competition_id')) {
-            if ($role == 'admin') {
-                // Jika admin, tampilkan semua kelas sesuai competition_id
+            if ($role === 'admin') {
                 $classes = Classes::where('competition_id', $request->competition_id)->get();
-            } else if ($role == 'juri') {
-                // Jika juri, tampilkan kelas hanya yang berkaitan dengan judge_id (user)
+            } else if ($role === 'juri') {
                 $classes = Classes::whereHas('class_participants', function ($query) use ($userId) {
-                    $query->where('judge_id', $userId); // Pastikan hanya kelas yang dihakimi oleh juri yang ditampilkan
-                })
-                    ->where('competition_id', $request->competition_id)
-                    ->get();
+                    $query->where('judge_id', $userId);
+                })->where('competition_id', $request->competition_id)->get();
             }
         }
 
-        // Jika ada class_id, ambil data skor dan kelompokkan berdasarkan participant_id
-        if ($request->has('class_id')) {
-            $groupedScores = Score::with(['participant', 'class'])
+        // Jika user adalah juri, hanya ambil skor yang berkaitan dengan judge_id
+        if ($role === 'juri' && $request->has('class_id')) {
+            $groupedScores = Score::with(['participant', 'class', 'judge'])
+                ->where('class_id', $request->class_id)
+                ->where('judge_id', $userId) // Hanya ambil skor dengan judge_id = userId
+                ->get()
+                ->groupBy('participant_id'); // Kelompokkan berdasarkan participant_id
+        } elseif ($role === 'admin' && $request->has('class_id')) {
+            // Jika admin, ambil semua skor dikelompokkan berdasarkan judge_id dan participant_id
+            $groupedScores = Score::with(['participant', 'class', 'judge'])
                 ->where('class_id', $request->class_id)
                 ->get()
-                ->groupBy(function ($item) {
-                    return $item->participant_id; // Kelompokkan berdasarkan participant_id
-                });
+                ->groupBy(['judge_id', 'participant_id']); // Kelompokkan berdasarkan judge_id dan participant_id
         }
 
-        // Kembalikan view dengan data yang telah difilter
+        // Kembalikan view
         return view('pages.penilaian.index', compact('competitions', 'classes', 'groupedScores'));
     }
+
+
+
 
 
 
@@ -94,35 +98,61 @@ class penilaianController extends Controller
             return redirect()->route('penilaian.index')->with('error', 'Class ID tidak ditemukan.');
         }
 
-        // Ambil data berdasarkan participant_id dan class_id
-        $scores = Score::where('participant_id', $id)
-            ->where('class_id', $request->class_id)  // Pastikan class_id juga terisi
-            ->with(['participant', 'class', 'criteria']) // Ambil relasi criteria
-            ->get();
+        // Ambil data user yang sedang login
+        $user = Auth::user();
+        $role = $user->role;
+        $userId = $user->id;
+
+        // Query dasar untuk skor berdasarkan participant_id dan class_id
+        $query = Score::where('participant_id', $id)
+            ->where('class_id', $request->class_id)
+            ->with(['participant', 'class', 'criteria', 'judge']); // Tambahkan relasi judge untuk admin
+
+        // Jika role juri, tambahkan filter berdasarkan judge_id
+        if ($role === 'juri') {
+            $query->where('judge_id', $userId);
+        }
+
+        // Ambil data skor
+        $scores = $query->get();
 
         // Cek apakah data ditemukan
         if ($scores->isEmpty()) {
             return redirect()->route('penilaian.index')->with('error', 'Tidak ada data penilaian untuk peserta ini di kelas ini.');
         }
 
-        return view('pages.penilaian.edit', compact('scores'));
+        // Jika admin, kelompokkan skor berdasarkan judge_id
+        $groupedScores = ($role === 'admin')
+            ? $scores->groupBy('judge_id')
+            : null;
+
+        // Kembalikan view sesuai role
+        return view('pages.penilaian.edit', [
+            'scores' => $scores,
+            'groupedScores' => $groupedScores
+        ]);
     }
+
 
 
 
     public function update(Request $request, $id)
     {
-        // Validasi input
+        // Validasi setiap skor berdasarkan ID yang diberikan dalam input
         $request->validate([
-            'score' => 'required|numeric|min:0|max:100',
+            'score' => 'required|array',    // score harus dalam array
+            'score.*' => 'required|numeric|min:0|max:100', // nilai untuk setiap skor harus berupa angka
         ]);
 
-        // Cari data score berdasarkan ID
-        $score = Score::findOrFail($id);
+        // Loop untuk update semua score berdasarkan ID dan data dari input
+        foreach ($request->score as $scoreId => $newScore) {
+            // Temukan masing-masing score berdasarkan ID
+            $score = Score::findOrFail($scoreId);
 
-        // Update nilai score
-        $score->score = $request->score;
-        $score->save();
+            // Update nilai score
+            $score->score = $newScore;
+            $score->save();
+        }
 
         // Ambil class berdasarkan class_id dari score yang diupdate
         $class = Classes::find($score->class_id); // Ambil data class berdasarkan class_id
@@ -135,9 +165,10 @@ class penilaianController extends Controller
         // Redirect kembali ke halaman penilaian dengan membawa query parameter
         return redirect()->route('penilaian.index', [
             'competition_id' => $class->competition_id,  // Ambil competition_id dari class
-            'class_id' => $score->class_id,               // class_id dari score yang diupdate
+            'class_id' => $class->id,               // class_id dari score yang diupdate
         ])->with('success', 'Penilaian berhasil diperbarui.');
     }
+
 
 
 

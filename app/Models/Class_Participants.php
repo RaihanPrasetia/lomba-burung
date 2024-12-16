@@ -17,7 +17,6 @@ class Class_Participants extends Model
     protected $table = 'class_participants';
     protected $fillable = [
         'class_id',
-        'participant_id',
         'judge_id'
     ];
 
@@ -32,10 +31,6 @@ class Class_Participants extends Model
     /**
      * Get the judge associated with the class.
      */
-    public function participant()
-    {
-        return $this->belongsTo(Participant::class, 'participant_id');
-    }
 
     public function judge()
     {

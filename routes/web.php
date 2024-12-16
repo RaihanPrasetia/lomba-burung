@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [guestController::class, 'index'])->name('home');
+Route::get('/rank/{classId}', [guestController::class, 'show'])->name('rank.show');
 
 
 Route::get('/login', [authController::class, 'index'])->name('login');
@@ -28,7 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('class', classesController::class);
     Route::resource('/criteria', criteriaController::class);
     Route::resource('/juri', JuriController::class);
-    Route::get('/peserta', [pesertaController::class, 'index'])->name('peserta.index');
+    Route::resource('/peserta', pesertaController::class);
     Route::resource('/penilaian', penilaianController::class);
 
     Route::get('/score', [scoreController::class, 'index'])->name('score.index');

@@ -19,7 +19,6 @@
             </div>
         </div>
     </section>
-
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -75,38 +74,79 @@
                             @if ($groupedScores)
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
-                                        <tr>
-                                            <th>Nama Peserta</th>
-                                            <th>Nama Burung</th>
-                                            <th>No Gantang</th>
-                                            <th>Kontak</th>
-                                            <th>Status</th>
-                                            <th class="text-center">Aksi</th>
-                                        </tr>
+                                        @if (Auth::user()->role === 'admin')
+                                            <tr>
+                                                <th>Nama Peserta</th>
+                                                <th>Nama Burung</th>
+                                                <th>No Gantang</th>
+                                                <th>Kontak</th>
+                                                <th>Status</th>
+                                                <th class="text-center">Aksi</th>
+                                            </tr>
+                                        @elseif(Auth::user()->role === 'juri')
+                                            <tr>
+                                                <th>No Gantang</th>
+                                                <th>Status</th>
+                                                <th class="text-center">Aksi</th>
+                                            </tr>
+                                        @endif
                                     </thead>
                                     <tbody>
-                                        @foreach ($groupedScores as $participantId => $scores)
-                                            @php
-                                                $participant = $scores->first()->participant; // Ambil data peserta pertama
-                                            @endphp
-                                            <tr>
-                                                <td>{{ $participant->name }}</td>
-                                                <td>{{ $participant->bird_name }}</td>
-                                                <td>{{ $participant->no_gantang }}</td>
-                                                <td>{{ $participant->contact_info }}</td>
-                                                <td>{{ $participant->status }}</td>
-                                                <td class="text-center">
-                                                    <a
-                                                        href="{{ route('penilaian.edit', ['penilaian' => $participant->id, 'class_id' => $scores->first()->class_id]) }}">
-                                                        Beri Nilai
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                        @if (Auth::user()->role === 'admin')
+                                            @foreach ($groupedScores as $judgeId => $groupByJudge)
+                                                @php
+                                                    $judge = \App\Models\User::find($judgeId);
+                                                @endphp
+                                                <tr>
+                                                    <td colspan="6" class="text-center">
+                                                        <strong>Juri: {{ $judge->name }}</strong>
+                                                    </td>
+                                                </tr>
+
+                                                @foreach ($groupByJudge as $participantId => $scores)
+                                                    @php
+                                                        $participant = $scores->first()->participant; // Ambil data peserta
+                                                    @endphp
+                                                    <tr>
+                                                        <td>{{ $participant->name }}</td>
+                                                        <td>{{ $participant->bird_name }}</td>
+                                                        <td>{{ $participant->no_gantang }}</td>
+                                                        <td>{{ $participant->contact_info }}</td>
+                                                        <td>{{ $participant->status }}</td>
+                                                        <td class="text-center">
+                                                            <a
+                                                                href="{{ route('penilaian.edit', ['penilaian' => $participant->id, 'class_id' => $scores->first()->class_id]) }}">
+                                                                Beri Nilai
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @endforeach
+                                        @elseif(Auth::user()->role === 'juri')
+                                            @foreach ($groupedScores as $participantId => $scores)
+                                                @php
+                                                    $participant = $scores->first()->participant; // Ambil data peserta
+                                                @endphp
+                                                <tr>
+                                                    <td>{{ $participant->bird_name }}</td>
+                                                    <td>{{ $participant->status }}</td>
+                                                    <td class="text-center">
+                                                        <a
+                                                            href="{{ route('penilaian.edit', ['penilaian' => $participant->id, 'class_id' => $scores->first()->class_id]) }}">
+                                                            Beri Nilai
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+
                                     </tbody>
                                 </table>
+                            @else
+                                <tr>
+                                    <td colspan="6" class="text-center">Tidak ada data peserta</td>
+                                </tr>
                             @endif
-
                         </div>
                     </div>
                 </div>
