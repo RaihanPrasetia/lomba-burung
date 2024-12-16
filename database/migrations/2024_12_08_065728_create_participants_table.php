@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('bird_name');
             $table->string('no_gantang');
             $table->string('contact_info');
+            $table->enum('status', ['Active', 'Disq']);
             $table->timestamps();
         });
     }
