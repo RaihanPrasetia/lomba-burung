@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('competitions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('pdf_link');
+            $table->enum('status', ['Akan Datang', 'Berlangsung', 'Selesai']);
             $table->date('date');
             $table->timestamps();
         });
