@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [guestController::class, 'index'])->name('home');
+Route::get('/rank', [guestController::class, 'rank'])->name('rank.index');
 Route::get('/rank/{classId}', [guestController::class, 'show'])->name('rank.show');
 
 

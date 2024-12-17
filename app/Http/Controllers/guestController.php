@@ -14,14 +14,14 @@ class guestController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function rank(Request $request)
     {
         $competitionId = $request->input('competition_id');
         $classId = $request->input('class_id');
 
         // If competition_id is not selected, show the view with empty results
         if (!$competitionId) {
-            return view('pages.user.index', [
+            return view('pages.user.rankTable', [
                 'competitions' => Competition::all(),
                 'classes' => [],
                 'criterias' => collect(),
@@ -34,7 +34,7 @@ class guestController extends Controller
 
         // If class_id is not selected, display with empty results
         if (!$classId) {
-            return view('pages.user.index', [
+            return view('pages.user.rankTable', [
                 'competitions' => Competition::all(),
                 'classes' => $classes,
                 'criterias' => collect(),
@@ -111,7 +111,7 @@ class guestController extends Controller
             return $result;
         });
 
-        return view('pages.user.index', [
+        return view('pages.user.rankTable', [
             'criterias' => $criterias,
             'results' => $finalResults,
             'competitions' => Competition::all(),
@@ -119,7 +119,11 @@ class guestController extends Controller
         ]);
     }
 
-
+    public function index()
+    {
+        $competitions = Competition::all()->where('status', 'Akan Datang');
+        return view('pages.user.index', compact('competitions'));
+    }
     /**
      * Show the form for creating a new resource.
      */
