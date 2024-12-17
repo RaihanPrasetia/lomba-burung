@@ -257,7 +257,7 @@
         // Jika elemen ada, tampilkan Toast
         if (successMessage) {
             toastr.success(successMessage.textContent);
-        }else{
+        }else if(errorMessage){
             toastr.error(errorMessage.textContent);
         }
 
