@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('title', 'Penilaian')
+<link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
 
 @section('content')
 
@@ -25,6 +26,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header row">
+
                             <h3 class="card-title col-sm-6 d-flex align-items-center">Table Criteria</h3>
                             <div class="col-sm-6 d-flex justify-content-end" style="gap: 8px">
                                 <!-- Competition Dropdown -->
@@ -60,13 +62,14 @@
 
                         <div class="card-body">
                             @if (session('success'))
-                                <div class="mb-2 p-2 bg-success text-white border border-success rounded-lg shadow-sm">
+                                <div id="successMessage" class="toastrDefaultSuccess" style="display: none;">
                                     {{ session('success') }}
                                 </div>
                             @endif
+                            
 
                             @if (session('error'))
-                                <div class="mb-2 p-2 bg-danger text-white border border-danger rounded-lg shadow-sm">
+                                <div id="errorMessage" class="toastrDefaultError" style="display: none;">
                                     {{ session('error') }}
                                 </div>
                             @endif
@@ -114,9 +117,29 @@
                                                         <td>{{ $participant->contact_info }}</td>
                                                         <td>{{ $participant->status }}</td>
                                                         <td class="text-center">
-                                                            <a
+                                                            {{-- <a
                                                                 href="{{ route('penilaian.edit', ['penilaian' => $participant->id, 'class_id' => $scores->first()->class_id]) }}">
                                                                 Beri Nilai
+                                                            </a> --}}
+                                                            <a class="btn btn-info btn-sm" data-toggle="modal"
+                                                                data-target="#penilaianModal" onclick="editModal(event)"
+                                                                data-json='{{ json_encode([
+                                                                    'participant_id' => $participant->id,
+                                                                    'class_id' => $scores->first()->class_id,
+                                                                    'participant_name' => $participant->name,
+                                                                    'bird_name' => $participant->bird_name,
+                                                                    'no_gantang' => $participant->no_gantang,
+                                                                    'class_name' => $scores->first()->class->name,
+                                                                    'scores' => $scores->map(function ($score) {
+                                                                        return [
+                                                                            'criteria_id' => $score->criteria->id,
+                                                                            'criteria_name' => $score->criteria->name,
+                                                                            'value' => $score->score,
+                                                                        ];
+                                                                    }),
+                                                                ]) }}'>
+                                                                <i class="fas fa-pencil-alt"></i>
+                                                                Edit
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -131,9 +154,29 @@
                                                     <td>{{ $participant->bird_name }}</td>
                                                     <td>{{ $participant->status }}</td>
                                                     <td class="text-center">
-                                                        <a
+                                                        {{-- <a
                                                             href="{{ route('penilaian.edit', ['penilaian' => $participant->id, 'class_id' => $scores->first()->class_id]) }}">
                                                             Beri Nilai
+                                                        </a> --}}
+                                                        <a class="btn btn-info btn-sm" data-toggle="modal"
+                                                            data-target="#penilaianModal" onclick="editModal(event)"
+                                                            data-json='{{ json_encode([
+                                                                'participant_id' => $participant->id,
+                                                                'class_id' => $scores->first()->class_id,
+                                                                'participant_name' => $participant->name,
+                                                                'bird_name' => $participant->bird_name,
+                                                                'no_gantang' => $participant->no_gantang,
+                                                                'class_name' => $scores->first()->class->name,
+                                                                'scores' => $scores->map(function ($score) {
+                                                                    return [
+                                                                        'criteria_id' => $score->criteria->id,
+                                                                        'criteria_name' => $score->criteria->name,
+                                                                        'value' => $score->score,
+                                                                    ];
+                                                                }),
+                                                            ]) }}'>
+                                                            <i class="fas fa-pencil-alt"></i>
+                                                            Edit
                                                         </a>
                                                     </td>
                                                 </tr>
@@ -153,5 +196,71 @@
             </div>
         </div>
     </section>
-
+    @include('components.modals.penilaianModal')
 @endsection
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="text/javascript">
+    function editModal(event) {
+        const button = event.currentTarget;
+        const data = JSON.parse(button.getAttribute('data-json'));
+
+        const participantId = data.participant_id;
+        const classId = data.class_id;
+        const participantName = data.participant_name;
+        const birdName = data.bird_name;
+        const noGantang = data.no_gantang;
+        const className = data.class_name;
+        const scores = data.scores;
+
+        const form = document.getElementById('penilaianForm');
+        form.action = `/penilaian/${participantId}`;
+
+        document.getElementById('participantName').innerText = participantName;
+        document.getElementById('birdName').innerText = birdName;
+        document.getElementById('noGantang').innerText = noGantang;
+        document.getElementById('className').innerText = className;
+        document.getElementById('participantId').value = participantId;
+        document.getElementById('classId').value = classId;
+
+        const scoreInputsContainer = document.getElementById('scoreInputs');
+        scoreInputsContainer.innerHTML = '';
+
+        // Isi nilai skor
+        scores.forEach(score => {
+            const html = `
+            <div class="form-group">
+                <label for="score_${score.criteria_id}">
+                    Nilai untuk ${score.criteria_name}:
+                </label>
+                <input type="number" class="form-control" id="score_${score.criteria_id}"
+                    name="score[${score.criteria_id}]" value="${score.value}"
+                    placeholder="Masukkan nilai" required min="0" max="100">
+            </div>
+        `;
+            scoreInputsContainer.innerHTML += html;
+        });
+    }
+</script>
+<script type="text/javascript">
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const successMessage = document.querySelector('.toastrDefaultSuccess');
+        const errorMessage = document.querySelector('.toastrDefaultError');
+
+        // Jika elemen ada, tampilkan Toast
+        if (successMessage) {
+            toastr.success(successMessage.textContent);
+        }else{
+            toastr.error(errorMessage.textContent);
+        }
+
+    });
+    
+</script>
