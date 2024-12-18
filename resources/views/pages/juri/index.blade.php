@@ -37,14 +37,26 @@
                                     </div>
                                 </div> --}}
                                 <div class="card-tools">
-                                    <button type="button" class="btn btn-default" data-toggle="modal"
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#juriModal" onclick="resetForm()">
-                                        Tambah Juri
+                                        + Tambah Juri
                                     </button>
                                 </div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body table-responsive p-0">
+                                @if (session('success'))
+                                    <div id="successMessage" class="toastrDefaultSuccess" style="display: none;">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+
+
+                                @if (session('error'))
+                                    <div id="errorMessage" class="toastrDefaultError" style="display: none;">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
                                 <table class="table table-hover text-nowrap">
                                     <thead>
                                         <tr>
@@ -66,7 +78,7 @@
                                                 <td>{{ $user->jenis_kelamin }}</td>
                                                 <td>{{ $user->alamat }}</td>
                                                 <td>{{ $user->role }}</td>
-                                                <td><a class="btn btn-info btn-sm" data-toggle="modal"
+                                                <td><a class="btn btn-warning btn-sm" data-toggle="modal"
                                                         data-target="#juriModal"
                                                         onclick="editForm({{ json_encode($user) }})">
                                                         <i class="fas fa-pencil-alt">
@@ -74,7 +86,8 @@
                                                         Edit
                                                     </a>
                                                     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                                        data-target="#modalDelete" onclick="deleteForm({{ $user }})">
+                                                        data-target="#modalDelete"
+                                                        onclick="deleteForm({{ $user }})">
                                                         <i class="fas fa-trash"></i> Hapus
                                                     </button>
                                                 </td>
@@ -96,6 +109,8 @@
     @include('components.modals.juriModal')
     @include('components.modals.deleteModal')
 @endsection
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script type="text/javascript">
     function resetForm() {
@@ -137,4 +152,25 @@
         const form = document.getElementById('deleteForm');
         form.action = `/juri/${user.id}`;
     }
+</script>
+
+<script type="text/javascript">
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const successMessage = document.querySelector('.toastrDefaultSuccess');
+        const errorMessage = document.querySelector('.toastrDefaultError');
+
+        // Jika elemen ada, tampilkan Toast
+        if (successMessage) {
+            toastr.success(successMessage.textContent);
+        } else if (errorMessage) {
+            toastr.error(errorMessage.textContent);
+        }
+
+    });
 </script>
