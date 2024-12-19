@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Classes;
 use App\Models\Competition;
+use App\Models\Participant;
 use App\Models\Score;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -87,6 +88,29 @@ class penilaianController extends Controller
     {
         //
     }
+
+    public function updateStatus(Request $request, $participantId)
+    {
+        try {
+            // Validasi input status
+            $request->validate([
+                'status' => 'required|string|in:Active,Disq',
+            ]);
+
+            // Cari peserta berdasarkan ID
+            $participant = Participant::findOrFail($participantId);
+            $participant->status = $request->input('status');
+            $participant->save();
+
+            // Berikan respons sukses
+            return response()->json(['success' => true, 'message' => 'Status berhasil diperbarui.']);
+        } catch (\Exception $e) {
+            // Handle error
+            return response()->json(['success' => false, 'message' => 'Gagal memperbarui status.'], 500);
+        }
+    }
+
+
 
     /**
      * Show the form for editing the specified resource.

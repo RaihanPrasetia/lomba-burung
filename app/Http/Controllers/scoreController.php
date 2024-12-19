@@ -42,39 +42,52 @@ class scoreController extends Controller
             ]);
         }
 
-        // If competition_id and class_id are selected, proceed with the calculation
+        // Retrieve criteria for the selected class
         $criterias = Criteria::whereHas('classes', function ($query) use ($classId) {
             $query->where('classes.id', $classId);
         })->get(); // This returns a collection
 
-        // Ambil data skor peserta berdasarkan class_id dan criteria_id
+        // Retrieve scores and filter participants with "Active" status only
         $scores = Score::with(['participant', 'criteria'])
             ->where('class_id', $classId)
             ->whereIn('criteria_id', $criterias->pluck('id'))
-            ->get(); // This returns a collection
+            ->get();
+
 
         if ($scores->isEmpty()) {
             return redirect()->back()->with('error', 'Tidak ada skor peserta untuk kelas ini.');
         }
 
-        // Hitung jumlah juri pada kelas tersebut
+        // Count number of judges
         $judgeCount = Class_Participants::where('class_id', $classId)->count();
 
-        // Normalisasi nilai per kriteria
+        // Normalize scores per criteria
         $groupedScores = $scores->groupBy('criteria_id');
         $normalizedScores = [];
 
         foreach ($groupedScores as $criteriaId => $group) {
-            $maxValue = $group->max('score');
-            $minValue = $group->min('score');
+            // Filter hanya peserta dengan status 'Active'
+            $filteredGroup = $group->filter(function ($score) {
+                return $score->participant && $score->participant->status === 'Active';
+            });
+
+            // Hitung max dan min hanya dari peserta 'Active'
+            $maxValue = $filteredGroup->max('score');
+            $minValue = $filteredGroup->min('score');
             $criteriaType = $criterias->where('id', $criteriaId)->first()->type;
 
             foreach ($group as $score) {
-                // Jika ada lebih dari satu juri, hitung rata-rata skor
+                // Set score ke 0 jika peserta tidak 'Active'
+                if (!$score->participant || $score->participant->status !== 'Active') {
+                    $normalizedScores[$score->participant_id][$criteriaId] = 0;
+                    continue;
+                }
+
+                // Gunakan skor dari peserta aktif
                 $scoreValue = $score->score;
                 if ($group->count() > 1) {
                     $averageScore = $group->where('participant_id', $score->participant_id)->avg('score');
-                    $scoreValue = $averageScore; // Ambil rata-rata skor jika ada lebih dari satu juri
+                    $scoreValue = $averageScore;
                 }
 
                 // Normalisasi berdasarkan jenis kriteria
@@ -86,7 +99,7 @@ class scoreController extends Controller
             }
         }
 
-        // Hitung nilai akhir berdasarkan bobot
+        // Calculate final weighted scores
         $weightedScores = [];
         foreach ($normalizedScores as $participantId => $criteriaScores) {
             $total = 0;
@@ -94,16 +107,14 @@ class scoreController extends Controller
                 $weight = $criterias->where('id', $criteriaId)->first()->weight;
                 $total += $normalizedScore * $weight;
 
-                // Simpan nilai kriteria ter-normalisasi dengan bobot
                 $weightedScores[$participantId]['scores'][$criteriaId] = $normalizedScore * $weight;
             }
 
-            // Simpan total nilai
             $weightedScores[$participantId]['total'] = $total;
             $weightedScores[$participantId]['participant'] = $scores->where('participant_id', $participantId)->first()->participant;
         }
 
-        // Urutkan berdasarkan total nilai secara descending dan tambahkan ranking
+        // Sort by total score descending and assign ranking
         $finalResults = collect($weightedScores)->sortByDesc('total')->values();
         $rank = 1;
         $finalResults = $finalResults->map(function ($result) use (&$rank) {
@@ -118,6 +129,7 @@ class scoreController extends Controller
             'classes' => $classes,
         ]);
     }
+
 
 
 

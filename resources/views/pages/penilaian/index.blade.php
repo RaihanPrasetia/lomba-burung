@@ -66,7 +66,7 @@
                                     {{ session('success') }}
                                 </div>
                             @endif
-                            
+
 
                             @if (session('error'))
                                 <div id="errorMessage" class="toastrDefaultError" style="display: none;">
@@ -141,6 +141,10 @@
                                                                 <i class="fas fa-pencil-alt"></i>
                                                                 Edit
                                                             </a>
+                                                            <button class="btn btn-warning btn-sm"
+                                                                onclick="updateStatus('{{ $participant->id }}', '{{ $participant->status }}')">
+                                                                <i class="fas fa-toggle-on"></i> Ubah Status
+                                                            </button>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -242,6 +246,54 @@
             scoreInputsContainer.innerHTML += html;
         });
     }
+
+    function updateStatus(participantId, currentStatus) {
+        const newStatus = currentStatus === 'Active' ? 'Disq' : 'Active';
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute(
+            'content'); // Tangkap token CSRF
+
+        if (!csrfToken) {
+            console.error("CSRF token tidak ditemukan.");
+            Swal.fire('Kesalahan!', 'Token CSRF tidak tersedia. Pastikan meta tag ada.', 'error');
+            return;
+        }
+
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: `Apakah Anda yakin ingin mengubah status menjadi ${newStatus}?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Ubah',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`/penilaian/${participantId}/status`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken, // Gunakan token CSRF
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            status: newStatus
+                        }),
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.success) {
+                            Swal.fire('Berhasil!', 'Status berhasil diperbarui.', 'success').then(() => {
+                                location.reload(); // Refresh halaman
+                            });
+                        } else {
+                            Swal.fire('Gagal!', 'Terjadi kesalahan saat memperbarui status.', 'error');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Fetch error:', error);
+                        Swal.fire('Gagal!', 'Kesalahan jaringan.', 'error');
+                    });
+            }
+        });
+    }
 </script>
 <script type="text/javascript">
     var Toast = Swal.mixin({
@@ -257,10 +309,9 @@
         // Jika elemen ada, tampilkan Toast
         if (successMessage) {
             toastr.success(successMessage.textContent);
-        }else if(errorMessage){
+        } else if (errorMessage) {
             toastr.error(errorMessage.textContent);
         }
 
     });
-    
 </script>

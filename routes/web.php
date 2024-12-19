@@ -10,6 +10,7 @@ use App\Http\Controllers\penilaianController;
 use App\Http\Controllers\perlombaanController;
 use App\Http\Controllers\pesertaController;
 use App\Http\Controllers\scoreController;
+use App\Models\Participant;
 use Illuminate\Support\Facades\Route;
 
 
@@ -32,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/juri', JuriController::class);
     Route::resource('/peserta', pesertaController::class);
     Route::resource('/penilaian', penilaianController::class);
+    Route::post('/penilaian/{participantId}/status', [penilaianController::class, 'updateStatus'])->name('participant.status')->middleware('auth');
 
     Route::get('/score', [scoreController::class, 'index'])->name('score.index');
 });
