@@ -121,7 +121,7 @@
                                                                 href="{{ route('penilaian.edit', ['penilaian' => $participant->id, 'class_id' => $scores->first()->class_id]) }}">
                                                                 Beri Nilai
                                                             </a> --}}
-                                                            <a class="btn btn-info btn-sm" data-toggle="modal"
+                                                            <a class="btn btn-warning btn-sm" data-toggle="modal"
                                                                 data-target="#penilaianModal" onclick="editModal(event)"
                                                                 data-json='{{ json_encode([
                                                                     'participant_id' => $participant->id,
@@ -162,7 +162,7 @@
                                                             href="{{ route('penilaian.edit', ['penilaian' => $participant->id, 'class_id' => $scores->first()->class_id]) }}">
                                                             Beri Nilai
                                                         </a> --}}
-                                                        <a class="btn btn-info btn-sm" data-toggle="modal"
+                                                        <a class="btn btn-warning btn-sm" data-toggle="modal"
                                                             data-target="#penilaianModal" onclick="editModal(event)"
                                                             data-json='{{ json_encode([
                                                                 'participant_id' => $participant->id,

@@ -36,4 +36,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/penilaian/{participantId}/status', [penilaianController::class, 'updateStatus'])->name('participant.status')->middleware('auth');
 
     Route::get('/score', [scoreController::class, 'index'])->name('score.index');
+    Route::get('/get-classes', [PesertaController::class, 'getClasses']);
 });

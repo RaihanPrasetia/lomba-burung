@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Anda yakin ingin menghapus juri <b id="JuriName"></b>?</p>
+                <p>Anda yakin ingin menghapus <b id="nameDel"></b>?</p>
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -16,7 +16,7 @@
                     @csrf
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <button type="submit" class="btn btn-danger">Hapus Juri</button>
+                    <button type="submit" id="btnDetele" class="btn btn-danger"></button>
                 </form>
             </div>
         </div>

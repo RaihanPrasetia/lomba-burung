@@ -23,7 +23,9 @@ class pesertaController extends Controller
         $classId = $request->input('class_id');
 
         $competitions = Competition::all();
-        $classes = Classes::where('competition_id', $competitionId)->get(); // Filter classes based on competition
+        $classes = $competitionId
+            ? Classes::where('competition_id', $competitionId)->get()
+            : collect(); // Filter classes based on competition
 
         // Fetch the participants in the selected class if competition_id and class_id are chosen
         $classPesertas = collect(); // Default empty collection
@@ -60,6 +62,15 @@ class pesertaController extends Controller
         return view('pages.peserta.create', compact('competitions', 'classes'));
     }
 
+    public function getClasses(Request $request)
+    {
+        $competitionId = $request->input('competition_id');
+
+        $classes = Classes::where('competition_id', $competitionId)->get();
+
+        return response()->json(['classes' => $classes]);
+    }
+
 
 
     /**
@@ -71,9 +82,11 @@ class pesertaController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'bird_name' => 'required|string|max:255',
-            'no_gantang' => 'required|numeric',
+            'no_gantang' => 'required|numeric|unique:participants,no_gantang',
             'contact_info' => 'required|string',
             'class_id' => 'required|array|min:1', // Class is an array of selected classes
+        ],[
+            'no_gantang.unique' => 'Nomor gantang sudah terdaftar.',
         ]);
 
         // Create participant record
@@ -146,8 +159,10 @@ class pesertaController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'bird_name' => 'required|string',
-            'no_gantang' => 'required|string',
+            'no_gantang' => 'required|numeric|unique:participants,no_gantang',
             'contact_info' => 'required|string',
+        ],[
+            'no_gantang.unique' => 'Nomor gantang sudah terdaftar.',
         ]);
 
         // Menemukan data perlombaan berdasarkan ID dan memperbarui data
@@ -159,7 +174,7 @@ class pesertaController extends Controller
             'contact_info' => $validated['contact_info'],
         ]);
 
-        return redirect()->route('peserta.index')->with('success', 'Perlombaan berhasil diperbarui.');
+        return redirect()->route('peserta.index')->with('success', 'Peserta berhasil diperbarui.');
     }
 
     /**
