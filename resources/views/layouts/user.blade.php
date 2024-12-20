@@ -26,15 +26,22 @@
         <div>
             <nav class="navbar navbar-dark bg-dark">
                 <div class="container-fluid">
-                    <span class="navbar-brand">Sistem Penilaian Nominasi Lomba Burung Kicau Berbasis Web Menggunakan
-                        Metode
-                        Simple
-                        Additive Weighting (SAW)
-                        Di Kec. Pasir Penyu</span>
+                    <!-- Brand Name -->
+                    <span class="navbar-brand">
+                        Sistem Penilaian Nominasi Lomba Burung Kicau Berbasis Web Menggunakan
+                        Metode Simple Additive Weighting (SAW) Di Kec. Pasir Penyu
+                    </span>
+
+                    <!-- Navigation Menu -->
+                    <div>
+                        <a href="{{ route('home') }}" class="text-white text-decoration-none mr-3">Home</a>
+                        <a href="{{ route('rank.index') }}" class="text-white text-decoration-none">Ranking</a>
+                    </div>
                 </div>
             </nav>
+
             <section class="min-h-screen flex bg-gray-200 text-black">
-                <div class="px-6 py-16 w-full">
+                <div class="px-6 py-16 w-full" style="padding: 10px 80px">
                     @yield('content')
                 </div>
             </section>
