@@ -65,16 +65,28 @@ class guestController extends Controller
         $normalizedScores = [];
 
         foreach ($groupedScores as $criteriaId => $group) {
-            $maxValue = $group->max('score');
-            $minValue = $group->min('score');
+            // Filter hanya peserta dengan status 'Active'
+            $filteredGroup = $group->filter(function ($score) {
+                return $score->participant && $score->participant->status === 'Active';
+            });
+
+            // Hitung max dan min hanya dari peserta 'Active'
+            $maxValue = $filteredGroup->max('score');
+            $minValue = $filteredGroup->min('score');
             $criteriaType = $criterias->where('id', $criteriaId)->first()->type;
 
             foreach ($group as $score) {
-                // Jika ada lebih dari satu juri, hitung rata-rata skor
+                // Set score ke 0 jika peserta tidak 'Active'
+                if (!$score->participant || $score->participant->status !== 'Active') {
+                    $normalizedScores[$score->participant_id][$criteriaId] = 0;
+                    continue;
+                }
+
+                // Gunakan skor dari peserta aktif
                 $scoreValue = $score->score;
                 if ($group->count() > 1) {
                     $averageScore = $group->where('participant_id', $score->participant_id)->avg('score');
-                    $scoreValue = $averageScore; // Ambil rata-rata skor jika ada lebih dari satu juri
+                    $scoreValue = $averageScore;
                 }
 
                 // Normalisasi berdasarkan jenis kriteria
@@ -85,6 +97,7 @@ class guestController extends Controller
                 $normalizedScores[$score->participant_id][$criteriaId] = $normalizedValue;
             }
         }
+
 
         // Hitung nilai akhir berdasarkan bobot
         $weightedScores = [];
