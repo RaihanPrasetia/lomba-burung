@@ -33,4 +33,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('/penilaian', penilaianController::class);
 
     Route::get('/score', [scoreController::class, 'index'])->name('score.index');
+    Route::get('/get-classes', [PesertaController::class, 'getClasses']);
 });

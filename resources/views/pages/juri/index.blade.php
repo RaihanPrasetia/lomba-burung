@@ -146,8 +146,9 @@
     }
 
     function deleteForm(user) {
-        document.getElementById('JuriName').textContent = user.name;
+        document.getElementById('nameDel').textContent = user.name;
         document.getElementById('tittle').textContent = 'Hapus Juri';
+        document.getElementById('btnDetele').textContent = 'Hapus Juri';
 
         const form = document.getElementById('deleteForm');
         form.action = `/juri/${user.id}`;
