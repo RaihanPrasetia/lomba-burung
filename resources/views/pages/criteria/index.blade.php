@@ -29,20 +29,24 @@
                         <div class="card-header row">
                             <h3 class="card-title col-sm-6 d-flex align-items-center">Table Criteria</h3>
                             <div class="col-sm-6 d-flex justify-content-end">
-                                <a href="{{ route('criteria.create') }}" class="card-title  btn btn-primary">+ Buat
-                                    Criteria</a>
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#kriteriaModal" onclick="resetForm()">
+                                    + Tambah Kriteria
+                                </button>
                             </div>
                         </div>
 
                         <!-- /.card-header -->
                         <div class="card-body">
                             @if (session('success'))
-                                <div class="mb-2 p-2 bg-success text-white border border-success rounded-lg shadow-sm">
+                                <div id="successMessage" class="toastrDefaultSuccess" style="display: none;">
                                     {{ session('success') }}
                                 </div>
                             @endif
+
+
                             @if (session('error'))
-                                <div class="mb-2 p-2 bg-danger text-white border border-danger rounded-lg shadow-sm">
+                                <div id="errorMessage" class="toastrDefaultError" style="display: none;">
                                     {{ session('error') }}
                                 </div>
                             @endif
@@ -71,20 +75,15 @@
 
                                             <td class="text-center">
                                                 <!-- Tombol Aksi -->
-                                                <a href="{{ route('criteria.edit', $criteria->id) }}"
+                                                <a data-toggle="modal" data-target="#kriteriaModal"
+                                                    onclick="editForm({{ json_encode($criteria) }})"
                                                     class="btn btn-warning">Edit</a>
 
-                                                <button type="button" class="btn btn-danger delete-btn"
-                                                    data-id="{{ $criteria->id }}" data-name="{{ $criteria->name }}">
+                                                <button type="button" class="btn btn-danger delete-btn" data-toggle="modal"
+                                                    data-target="#modalDelete"
+                                                    onclick="deleteForm({{ json_encode($criteria) }})">
                                                     Hapus
                                                 </button>
-
-                                                <form id="delete-form-{{ $criteria->id }}"
-                                                    action="{{ route('criteria.destroy', $criteria->id) }}" method="POST"
-                                                    style="display:none;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
                                             </td>
 
                                         </tr>
@@ -103,20 +102,67 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-    <script>
-        // Mengambil semua tombol dengan kelas delete-btn
-        document.querySelectorAll('.delete-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                // Ambil ID dan nama kelas dari data-atribut
-                const classId = this.getAttribute('data-id');
-                const className = this.getAttribute('data-name');
-
-                // Konfirmasi penghapusan
-                if (confirm('Apakah Anda yakin ingin menghapus kelas "' + className + '"?')) {
-                    // Kirimkan form penghapusan yang terkait
-                    document.getElementById('delete-form-' + classId).submit();
-                }
-            });
-        });
-    </script>
+    @include('components.modals.kriteriaModal')
+    @include('components.modals.deleteModal')
 @endsection
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script type="text/javascript">
+    function resetForm() {
+        document.getElementById('kriteriaForm').reset();
+        document.getElementById('method').value = 'POST';
+        document.getElementById('kriteriaForm').action = "{{ route('criteria.store') }}";
+        document.getElementById('modalTitle').textContent = 'Tambah Kriteria';
+        document.getElementById('title').textContent = 'Simpan Kriteria';
+    }
+
+    function editForm(criteria) {
+
+        resetForm();
+        // Isi nilai form dengan data juri
+        document.getElementById('name').value = criteria.name;
+        document.getElementById('weight').value = criteria.weight;
+        document.getElementById('type').value = criteria.type;
+
+
+        // Set action form ke 'update' (PUT)
+        const form = document.getElementById('kriteriaForm');
+        form.action = `/criteria/${criteria.id}`; // Pastikan ID pengguna benar
+        document.getElementById('method').value = 'PUT'; // Set method jadi PUT
+
+        // Ubah judul modal
+        document.getElementById('modalTitle').textContent = 'Edit Kriteria';
+        document.getElementById('title').textContent = 'Update Kriteria';
+    }
+
+    function deleteForm(criteria) {
+        document.getElementById('nameDel').textContent = criteria.name;
+        document.getElementById('tittle').textContent = 'Hapus Kriteria';
+        document.getElementById('btnDetele').textContent = 'Hapus Kriteria';
+
+        const form = document.getElementById('deleteForm');
+        form.action = `/criteria/${criteria.id}`;
+    }
+</script>
+<script type="text/javascript">
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const successMessage = document.querySelector('.toastrDefaultSuccess');
+        const errorMessage = document.querySelector('.toastrDefaultError');
+
+        // Jika elemen ada, tampilkan Toast
+        if (successMessage) {
+            toastr.success(successMessage.textContent);
+        } else if (errorMessage) {
+            toastr.error(errorMessage.textContent);
+        }
+
+    });
+</script>
