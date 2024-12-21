@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
     <title>Lomba Burung | @yield('title', 'Dashboard')</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -49,4 +48,5 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <!-- Toastr -->
 <script type="text/javascript" src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
+
 </html>
