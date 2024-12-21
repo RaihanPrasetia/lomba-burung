@@ -250,6 +250,78 @@
             .catch(error => console.error('Error:', error));
     }
 
+    document.addEventListener('DOMContentLoaded', function() {
+        const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+
+        if (!csrfTokenMeta) {
+            console.error('CSRF token meta tag not found!');
+            return; // Exit jika tidak ada token CSRF
+        }
+
+        // Dapatkan CSRF token dari meta tag
+        const csrfToken = csrfTokenMeta.content;
+
+        // Set CSRF token ke input tersembunyi (jika ada)
+        const tokenInput = document.querySelector('input[name="_token"]');
+        if (tokenInput) {
+            tokenInput.value = csrfToken;
+        } else {
+            console.error('CSRF token input field not found!');
+        }
+
+        const form = document.getElementById('kelasForm');
+        if (form) {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault(); // Mencegah submit default
+
+                const classId = document.getElementById('class_id').value;
+                const formData = new FormData(this);
+
+                try {
+                    // Kirim permintaan POST
+                    const response = await fetch(`/class/${classId}`, {
+                        method: 'POST', // Laravel membaca '_method' untuk PUT
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                        body: formData,
+                    });
+
+                    // Validasi status HTTP
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    // Parse JSON respons
+                    const result = await response.json();
+
+                    // Tampilkan notifikasi berdasarkan respons
+                    if (result && result.success) {
+                        toastr.success(result.message || 'Data berhasil diperbarui!');
+                        setTimeout(() => location.reload(), 1000); // Reload halaman setelah 2 detik
+                    } else {
+                        const message = result?.message || 'Respons tidak valid.';
+                        toastr.error(message);
+                        console.error('Server Error:', message);
+                    }
+                } catch (error) {
+                    // Tangani semua error
+                    console.error('Kesalahan:', error.message);
+                    toastr.error('Terjadi kesalahan saat memperbarui data.');
+                }
+            });
+        } else {
+            console.error("Form dengan ID 'kelasForm' tidak ditemukan.");
+        }
+    });
+
+
     function formDelete(classData) {
         console.log('Data yang diterima:', classData);
         document.getElementById('nameDel').textContent = classData.name;
@@ -263,59 +335,4 @@
             console.error('Form dengan ID "deleteForm" tidak ditemukan.');
         }
     }
-    document.addEventListener('DOMContentLoaded', function() {
-        const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
-        if (!csrfTokenMeta) {
-            console.error('CSRF token meta tag not found!');
-            return; // Exit early if CSRF token is not found
-        }
-
-        // Get the CSRF token from the meta tag
-        const csrfToken = csrfTokenMeta.content;
-
-        // Set the CSRF token value to the hidden input field
-        const tokenInput = document.querySelector('input[name="_token"]');
-        if (tokenInput) {
-            tokenInput.value = csrfToken;
-        } else {
-            console.error('CSRF token input field not found!');
-        }
-
-        const form = document.getElementById('kelasForm');
-        if (form) {
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault();
-
-                const classId = document.getElementById('class_id').value;
-                const formData = new FormData(this);
-
-                try {
-                    const response = await fetch(`/class/${classId}`, {
-                        method: 'POST', // Laravel will read '_method' for PUT
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken, // Use the CSRF token here
-                        },
-                        body: formData,
-                    });
-
-                    // Check if the response is JSON
-                    const result = await response.json().catch(error => {
-                        console.error('Failed to parse JSON:', error);
-                        return null;
-                    });
-
-                    if (result && result.success) {
-                        location.reload();
-                    } else {
-                        alert('Gagal memperbarui data: ' + (result?.message || ''));
-                    }
-                } catch (error) {
-                    console.error(error.message);
-                    alert('Terjadi kesalahan saat memperbarui data.');
-                }
-            });
-        } else {
-            console.error("Form dengan ID 'kelasForm' tidak ditemukan.");
-        }
-    });
 </script>
