@@ -33,7 +33,7 @@ class classesController extends Controller
      */
     public function create()
     {
-        $competitions = Competition::where('status', 'Akan Datang')->get();
+        $competitions = Competition::whereIn('status', ['Akan Datang', 'Berlangsung'])->get();
         $judges = User::where('role', 'juri')->get();
         $criterias = Criteria::all();
 
@@ -107,7 +107,7 @@ class classesController extends Controller
 
         return response()->json([
             'class' => $class,
-            'competitions' => Competition::where('status', 'Akan Datang')->get(),
+            'competitions' => Competition::whereIn('status', ['Akan Datang', 'Berlangsung'])->get(),
             'judges' => User::where('role', 'juri')->get(),
             'criterias' => Criteria::all()
         ]);
