@@ -85,7 +85,7 @@ class pesertaController extends Controller
             'no_gantang' => 'required|numeric|unique:participants,no_gantang',
             'contact_info' => 'required|string',
             'class_id' => 'required|array|min:1', // Class is an array of selected classes
-        ],[
+        ], [
             'no_gantang.unique' => 'Nomor gantang sudah terdaftar.',
         ]);
 
@@ -161,7 +161,7 @@ class pesertaController extends Controller
             'bird_name' => 'required|string',
             'no_gantang' => 'required|numeric|unique:participants,no_gantang',
             'contact_info' => 'required|string',
-        ],[
+        ], [
             'no_gantang.unique' => 'Nomor gantang sudah terdaftar.',
         ]);
 

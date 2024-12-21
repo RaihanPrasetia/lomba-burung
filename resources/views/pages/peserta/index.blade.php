@@ -108,8 +108,9 @@
                                                         <a class="btn btn-warning" data-toggle="modal"
                                                             data-target="#pesertaModal"
                                                             onclick="editForm({{ json_encode($classPeserta->participant) }})">Edit</a>
-                                                        <button type="button" class="btn btn-danger delete-btn" data-toggle="modal" data-target="#modalDelete"
-                                                        onclick="deleteForm({{ json_encode($classPeserta->participant) }})">
+                                                        <button type="button" class="btn btn-danger delete-btn"
+                                                            data-toggle="modal" data-target="#modalDelete"
+                                                            onclick="deleteForm({{ json_encode($classPeserta->participant) }})">
                                                             Hapus
                                                         </button>
                                                         {{-- <form id="delete-form-{{ $classPeserta->participant->id }}"
