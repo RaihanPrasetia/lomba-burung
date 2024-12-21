@@ -98,8 +98,9 @@
                                         <td class="text-center">
                                             <a class="btn btn-warning" data-toggle="modal" data-target="#kelasModal"
                                                 onclick="editForm({{ $class->id }})">Edit</a>
-                                            <button type="button" class="btn btn-danger delete-btn"
-                                                data-id="{{ $class->id }}" data-name="{{ $class->name }}">
+                                            <button type="button" class="btn btn-danger delete-btn" data-toggle="modal"
+                                                data-target="#modalDelete"
+                                                onclick="formDelete({ id: {{ $class->id }}, name: '{{ $class->name }}' })">
                                                 Hapus
                                             </button>
                                         </td>
@@ -122,6 +123,7 @@
     </section>
     <!-- /.content -->
     @include('components.modals.kelasModal')
+    @include('components.modals.deleteModal')
 @endsection
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -247,59 +249,73 @@
             })
             .catch(error => console.error('Error:', error));
     }
+
+    function formDelete(classData) {
+        console.log('Data yang diterima:', classData);
+        document.getElementById('nameDel').textContent = classData.name;
+        document.getElementById('tittle').textContent = 'Hapus Kelas';
+        document.getElementById('btnDetele').textContent = 'Hapus Kelas';
+
+        const form = document.getElementById('deleteForm');
+        if (form) {
+            form.action = `/class/${classData.id}`; // Set action ke URL yang sesuai
+        } else {
+            console.error('Form dengan ID "deleteForm" tidak ditemukan.');
+        }
+    }
     document.addEventListener('DOMContentLoaded', function() {
-    const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
-    if (!csrfTokenMeta) {
-        console.error('CSRF token meta tag not found!');
-        return; // Exit early if CSRF token is not found
-    }
+        const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+        if (!csrfTokenMeta) {
+            console.error('CSRF token meta tag not found!');
+            return; // Exit early if CSRF token is not found
+        }
 
-    // Get the CSRF token from the meta tag
-    const csrfToken = csrfTokenMeta.content;
+        // Get the CSRF token from the meta tag
+        const csrfToken = csrfTokenMeta.content;
 
-    // Set the CSRF token value to the hidden input field
-    const tokenInput = document.querySelector('input[name="_token"]');
-    if (tokenInput) {
-        tokenInput.value = csrfToken;
-    } else {
-        console.error('CSRF token input field not found!');
-    }
+        // Set the CSRF token value to the hidden input field
+        const tokenInput = document.querySelector('input[name="_token"]');
+        if (tokenInput) {
+            tokenInput.value = csrfToken;
+        } else {
+            console.error('CSRF token input field not found!');
+        }
 
-    const form = document.getElementById('kelasForm');
-    if (form) {
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
+        const form = document.getElementById('kelasForm');
+        if (form) {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
 
-            const classId = document.getElementById('class_id').value;
-            const formData = new FormData(this);
+                const classId = document.getElementById('class_id').value;
+                const formData = new FormData(this);
 
-            try {
-                const response = await fetch(`/class/${classId}`, {
-                    method: 'POST', // Laravel will read '_method' for PUT
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken, // Use the CSRF token here
-                    },
-                    body: formData,
-                });
+                try {
+                    const response = await fetch(`/class/${classId}`, {
+                        method: 'POST', // Laravel will read '_method' for PUT
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken, // Use the CSRF token here
+                        },
+                        body: formData,
+                    });
 
-                // Check if the response is JSON
-                const result = await response.json().catch(error => {
-                    console.error('Failed to parse JSON:', error);
-                    return null;
-                });
+                    // Check if the response is JSON
+                    const result = await response.json().catch(error => {
+                        console.error('Failed to parse JSON:', error);
+                        return null;
+                    });
 
-                if (result && result.success) {
-                    location.reload();
-                } else {
-                    alert('Gagal memperbarui data: ' + (result?.message || ''));
+                    if (result && result.success) {
+                        location.reload();
+                    } else {
+                        alert('Gagal memperbarui data: ' + (result?.message || ''));
+                    }
+                } catch (error) {
+                    console.error(error.message);
+                    alert('Terjadi kesalahan saat memperbarui data.');
                 }
-            } catch (error) {
-                console.error(error.message);
-                alert('Terjadi kesalahan saat memperbarui data.');
-            }
-        });
-    } else {
-        console.error("Form dengan ID 'kelasForm' tidak ditemukan.");
-    }
-});
+            });
+        } else {
+            console.error("Form dengan ID 'kelasForm' tidak ditemukan.");
+        }
+    });
 </script>
