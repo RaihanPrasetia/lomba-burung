@@ -36,7 +36,12 @@ class classesController extends Controller
         $competitions = Competition::where('status', 'Akan Datang')->get();
         $judges = User::where('role', 'juri')->get();
         $criterias = Criteria::all();
-        return view('pages.classes.create', compact('competitions', 'judges', 'criterias'));
+
+        return response()->json([
+            'competitions' => $competitions,
+            'judges' => $judges,
+            'criterias' => $criterias,
+        ]);
     }
 
     /**
@@ -96,11 +101,13 @@ class classesController extends Controller
     {
         // Ambil kelas, juri, dan perlombaan berdasarkan ID kelas
         $class = Classes::with(['class_participants.judge', 'competition', 'class_criterias'])->findOrFail($id);
-        $competitions = Competition::all(); // Ambil semua kompetisi
-        $judges = User::where('role', 'juri')->get(); // Ambil semua juri
-        $criterias = Criteria::all();
 
-        return view('pages.classes.edit', compact('class', 'competitions', 'judges', 'criterias'));
+        return response()->json([
+            'class' => $class,
+            'competitions' => Competition::where('status', 'Akan Datang')->get(),
+            'judges' => User::where('role', 'juri')->get(),
+            'criterias' => Criteria::all()
+        ]);
     }
 
 
@@ -145,7 +152,10 @@ class classesController extends Controller
         }
 
         // Redirect dengan pesan sukses
-        return redirect()->route('class.index')->with('success', 'Class berhasil diperbarui.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Class berhasil diperbarui.'
+        ]);
     }
 
 
