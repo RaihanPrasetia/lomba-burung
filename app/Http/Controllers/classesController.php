@@ -81,7 +81,10 @@ class classesController extends Controller
         }
 
         // Redirect dengan pesan sukses
-        return redirect()->route('class.index')->with('success', 'Perlombaan berhasil dibuat.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Class berhasil diperbarui.'
+        ]);
     }
 
 
