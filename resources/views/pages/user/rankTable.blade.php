@@ -59,6 +59,7 @@
                                     <thead>
                                         <tr>
                                             <th>Nama Peserta</th>
+                                            <th>No Gantang</th>
                                             @foreach ($criterias as $criteria)
                                                 <th>{{ $criteria->name }}</th>
                                             @endforeach
@@ -70,6 +71,7 @@
                                         @foreach ($results as $result)
                                             <tr>
                                                 <td>{{ $result['participant']->name }}</td>
+                                                <td>{{ $result['participant']->no_gantang }}</td>
                                                 @foreach ($criterias as $criteria)
                                                     <td>
                                                         {{-- Menampilkan skor ter-normalisasi dan berbobot --}}
