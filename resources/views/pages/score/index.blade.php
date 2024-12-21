@@ -65,7 +65,7 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Nama Peserta</th>
+                                            <th>No Gantangan</th>
                                             @foreach ($criterias as $criteria)
                                                 <th>{{ $criteria->name }}</th>
                                             @endforeach
@@ -76,7 +76,7 @@
                                     <tbody>
                                         @foreach ($results as $result)
                                             <tr>
-                                                <td>{{ $result['participant']->name }}</td>
+                                                <td>{{ $result['participant']->no_gantang }}</td>
                                                 @foreach ($criterias as $criteria)
                                                     <td>
                                                         {{-- Menampilkan skor ter-normalisasi dan berbobot --}}
