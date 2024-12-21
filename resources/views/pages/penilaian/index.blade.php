@@ -155,14 +155,14 @@
                                                     $participant = $scores->first()->participant; // Ambil data peserta
                                                 @endphp
                                                 <tr>
-                                                    <td>{{ $participant->bird_name }}</td>
+                                                    <td>{{ $participant->no_gantang }}</td>
                                                     <td>{{ $participant->status }}</td>
                                                     <td class="text-center">
-                                                        {{-- <a
+                                                        <a
                                                             href="{{ route('penilaian.edit', ['penilaian' => $participant->id, 'class_id' => $scores->first()->class_id]) }}">
                                                             Beri Nilai
-                                                        </a> --}}
-                                                        <a class="btn btn-warning btn-sm" data-toggle="modal"
+                                                        </a>
+                                                        {{-- <a class="btn btn-warning btn-sm" data-toggle="modal"
                                                             data-target="#penilaianModal" onclick="editModal(event)"
                                                             data-json='{{ json_encode([
                                                                 'participant_id' => $participant->id,
@@ -181,7 +181,11 @@
                                                             ]) }}'>
                                                             <i class="fas fa-pencil-alt"></i>
                                                             Edit
-                                                        </a>
+                                                        </a> --}}
+                                                        <button class="btn btn-warning btn-sm"
+                                                            onclick="updateStatus('{{ $participant->id }}', '{{ $participant->status }}')">
+                                                            <i class="fas fa-toggle-on"></i> Ubah Status
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             @endforeach

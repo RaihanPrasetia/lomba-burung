@@ -95,7 +95,7 @@ class pesertaController extends Controller
             'bird_name' => $validatedData['bird_name'],
             'no_gantang' => $validatedData['no_gantang'],
             'contact_info' => $validatedData['contact_info'],
-            'status' => 'active',
+            'status' => 'Active',
         ]);
 
         // Insert selected classes into ClassPeserta table
