@@ -113,12 +113,6 @@
                                                             onclick="deleteForm({{ json_encode($classPeserta->participant) }})">
                                                             Hapus
                                                         </button>
-                                                        {{-- <form id="delete-form-{{ $classPeserta->participant->id }}"
-                                                            action="{{ route('peserta.destroy', $classPeserta->participant->id) }}"
-                                                            method="POST" style="display:none;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                        </form> --}}
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -147,6 +141,7 @@
         document.getElementById('modalTitle').textContent = 'Tambah Peserta';
         document.getElementById('title').textContent = 'Simpan Peserta';
         competitionForm.style.display = 'block';
+        document.getElementById('class').style.display = 'block';
 
         const competitionDropdown = document.getElementById('competition_id');
         const options = Array.from(competitionDropdown.options);
@@ -195,6 +190,7 @@
     function editForm(peserta) {
         resetForm();
         competitionForm.style.display = 'none';
+        document.getElementById('class').style.display = 'none';
         // Isi nilai form dengan data juri
         document.getElementById('name').value = peserta.name;
         document.getElementById('bird_name').value = peserta.bird_name;
@@ -211,7 +207,7 @@
         form.action = `/peserta/${peserta.id}`; // Pastikan ID pengguna benar
         document.getElementById('method').value = 'PUT'; // Set method jadi PUT
 
-        $('#pesertaModal').modal('close');
+        // $('#pesertaModal').modal('close');
     }
 
     function deleteForm(participant) {
