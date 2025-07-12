@@ -82,11 +82,9 @@ class pesertaController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'bird_name' => 'required|string|max:255',
-            'no_gantang' => 'required|numeric|unique:participants,no_gantang',
+            'no_gantang' => 'required|numeric',
             'contact_info' => 'required|string',
             'class_id' => 'required|array|min:1', // Class is an array of selected classes
-        ], [
-            'no_gantang.unique' => 'Nomor gantang sudah terdaftar.',
         ]);
 
         // Create participant record
